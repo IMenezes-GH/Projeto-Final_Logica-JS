@@ -34,6 +34,7 @@ const turmaExiste = (consultaCodigo) => {
     }
 }
 
+let quantidadeTurmas = () => {return turmasDB.length}
 /**
  *  Cadastra uma nova turma para turmasDB
  * @param {*} codigo código da turma que será cadastrada
@@ -42,7 +43,10 @@ const turmaExiste = (consultaCodigo) => {
 const cadastrarTurma = (codigo, maximo = 5) => {
 
     try {
-        if (codigo > 10 || codigo < 1){
+        if (quantidadeTurmas() >= 10){
+            throw new Error('Quantidade máxima de turmas excedido (10)')
+        }
+        else if (codigo > 10 || codigo < 1){
             throw new Error('Códigos para Turmas cadastradas devem ter digitos entre 1 e 10.')
         }
         else if (turmaExiste(codigo)){
@@ -59,5 +63,3 @@ const cadastrarTurma = (codigo, maximo = 5) => {
         console.error(err.message)
     }
 }
-
-const quantidadeTurmas = turmasDB.length
