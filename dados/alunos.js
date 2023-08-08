@@ -46,33 +46,57 @@ const alunosDB = [
     }
 ]
 
-const emailValido = (email) => {
-    const emailRegExp = new RegExp(/[\w-\.]+@([\w-]+\.)+[\w-]/) // RegExp que captura padrão de email
-    return Boolean(email.match(emailRegExp))
-}
+// ===============================================================================
 
+/**
+ * Função para validar se determinada string qualifica como email. Parâmetros para ser considerado como email são: Uma sequência de caractéres alfanuméricos (username), seguidos por um '@' (symbol), outra sequência de caractéres alfanuméricos (domínio) seguidos com um '.' seguido por mais caractéres alfanuméricos (top-level).
+ * @param {String} e uma string que que será verificada
+ * @returns {String | false} retorna o email caso validado, ao contrário retorna false
+ */
+const emailValido = (e) => {
+
+    const emailRegExp = new RegExp(/[\w-\.]+@([\w-]+\.)+[\w-]/, 'g') // RegExp que captura padrão de email
+
+    if (e && e.match(emailRegExp)) return e
+    return false
+}
+/**
+ * Função para cadastramento de alunos. Aceita 7 parâmetros obrigatórios e 1 opcional
+ * @param {String} nome Primeiro nome do aluno
+ * @param {String} sobrenome Sobrenome do aluno
+ * @param {String} email Email do aluno
+ * @param {Number} turma Turma do aluno ([1 <= turma <= 10])
+ * @param {String} nascimento data de nascimento do aluno
+ * @param {Array} notas Array de notas do aluno (notas.length <= 5) 
+ * @param {Boolean} ativo Se o aluno está ativamente matriculado ou não. Padrão true 
+ * @returns {Boolean} True se a função executar com sucesso, caso contrário, false.
+ */
 const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=true) => {
 
     const a = {
         nome,
         sobrenome,
-        email,
+        email : emailValido(email),
         turma,
         nascimento,
         notas,
         ativo,
         }
 
+    // Verifica cada elemento do objeto aluno
     const validarAluno = (aluno) => {return Object.entries(aluno).every((val) => {
         try {
-
             if (!Boolean(String(val[1]).trim())){
                 throw new Error(`O valor de "${val[0]}" não foi preenchido ou foi preenchido incorretamente`)
-            } else {
+            }
+            else if (!val[1]) {
+                console.warn(`${val[0]} é inválido`)
+            }
+            else {
                 return Boolean(val)
             }
         } catch (err) {
-            console.error(`O valor de ${val[0]} não pode ser vazio.`)
+            console.error(`O valor de ${val[0]} está incorreto ou vazio.`)
         }
     })}
 
