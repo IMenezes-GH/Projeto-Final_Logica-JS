@@ -52,7 +52,7 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 - **O projeto deverá ser executado no console do navegador**
 
 
-## Funcionalidade extra*
+## ***Funcionalidade extra***
 
 Como opcional adicionar a funcionalidade de classificação nos alunos, onde será possível **cadastrar** os alunos com a seguinte classificação: A, B, C ou D. Isso implicará na forma como adicionamos novos alunos seguindo a regra:
 
