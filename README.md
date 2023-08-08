@@ -6,7 +6,7 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 
 ## Lista de requisitos:
 - [x] Cadastrar turma, contendo
-	- [ ] código, *number* entre 1 e 10 (no máximo 10 turmas)
+	- [x] código, *number* entre 1 e 10 (no máximo 10 turmas)
 	- [x] máximo, *number* máximo de alunos de 5 a 10
 
 - [ ] Cadastrar aluno, contendo:
