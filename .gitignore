@@ -2,6 +2,7 @@
 !*/
 !.gitignore
 
+!/dados/*.js
 !/scripts/*.js
 !index.html
 !*.md
