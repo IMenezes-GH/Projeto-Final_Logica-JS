@@ -16,7 +16,7 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 	- [ ] turma, *number* (sendo um código de turma válido)
 	- [ ] nascimento, sendo a data de nascimento do aluno
 	- [ ] notas, sendo um array de números, de no máximo 5 posições
-	- [ ] ativo, *boolean* // padrão true
+	- [x] ativo, *boolean* // padrão true
 ----------------------
 ### Funções:
 - [ ] Remover aluno
