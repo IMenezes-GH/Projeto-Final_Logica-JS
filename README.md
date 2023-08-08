@@ -10,9 +10,9 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 	- [x] máximo, *number* máximo de alunos de 5 a 10
 
 - [ ] **Cadastrar aluno, contendo:**
-	- [ ] nome, *string*
-	- [ ] sobrenome, *string*
-	- [ ] email, *string*
+	- [x] nome, *string*
+	- [x] sobrenome, *string*
+	- [x] email, *string*
 	- [ ] turma, *number* (sendo um código de turma válido)
 	- [ ] nascimento, sendo a data de nascimento do aluno
 	- [ ] notas, sendo um array de números, de no máximo 5 posições
@@ -48,7 +48,7 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 - **Não cadastrar alunos em turmas inexistentes**
 - **O nome do aluno não deve conter espaço extra no começo ou no fim**
 - **O nome do aluno deve iniciar com letra Maiúscula**
-- **O formato do e-mail do aluno deve ser válido**
+- **O formato do e-mail do aluno deve ser válido** ✓
 - **Você mesmo irá gerar os dados para realizar o projeto e apresentar os dados necessários para rodar o projeto**
 - **O projeto deverá ser executado no console do navegador**
 
