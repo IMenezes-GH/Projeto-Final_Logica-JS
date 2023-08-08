@@ -5,9 +5,9 @@
 Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com o arquivo [projeto-final.md](https://github.com/IMenezes-GH/desafio-final_logica/blob/main/projeto-final.md)
 
 ## Lista de requisitos:
-- [ ] Cadastrar turma, contendo
+- [x] Cadastrar turma, contendo
 	- [ ] código, *number* entre 1 e 10 (no máximo 10 turmas)
-	- [ ] máximo, *number* máximo de alunos de 5 a 10
+	- [x] máximo, *number* máximo de alunos de 5 a 10
 
 - [ ] Cadastrar aluno, contendo:
 	- [ ] nome, *string*
@@ -23,7 +23,7 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 - [ ] Atualizar informações do aluno
 - [ ] Buscar um aluno especifico
 - [ ] Retornar a lista completa de alunos
-- [ ] Retornar quantas turmas tem na escola
+- [x] Retornar quantas turmas tem na escola
 - [ ] Calcular a media do aluno
 - [ ] Desativar aluno
 - [ ] Retornar a lista apenas com alunos ativos
@@ -31,7 +31,7 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 - [ ] Retornar os alunos que estão com a média esperada
 - [ ] Relatório completo com os seguintes retornos:
 - [ ] Quantidade de alunos
-- [ ] Quantidade de turmas
+- [x] Quantidade de turmas
 - [ ] Alunos que estão com a média esperada
 - [ ] Alunos que estão abaixo da média esperada
 - [ ] Retornar alunos com a média calculada

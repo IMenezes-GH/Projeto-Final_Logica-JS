@@ -59,3 +59,5 @@ const cadastrarTurma = (codigo, maximo = 5) => {
         console.error(err.message)
     }
 }
+
+const quantidadeTurmas = turmasDB.length
