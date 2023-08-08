@@ -1,1 +1,7 @@
-.vscode
+*
+!*/
+!.gitignore
+
+!/scripts/*.js
+!index.html
+!*.md
