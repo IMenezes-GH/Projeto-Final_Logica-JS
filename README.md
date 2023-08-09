@@ -14,7 +14,7 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 	- [x] sobrenome, *string*
 	- [x] email, *string*
 	- [x] turma, *number* (sendo um código de turma válido)
-	- [ ] nascimento, sendo a data de nascimento do aluno
+	- [x] nascimento, sendo a data de nascimento do aluno
 	- [ ] notas, sendo um array de números, de no máximo 5 posições
 	- [x] ativo, *boolean* // padrão true
 ----------------------
