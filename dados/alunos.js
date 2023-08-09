@@ -58,6 +58,26 @@ const alunosDB = [
 // ===============================================================================
 // =-------------------------------------------------------------------------------=
 
+
+/**
+ * Função para validar se determinada string qualifica como nome. Transforma os nomes em titlecase onde necessário.
+ * @param {String} n nome para ser validado
+ * @returns {String | null} O nome validado ou null caso valor seja inválido
+ */
+const validarNome = (n) => {
+    n = n.trim()
+    if (n.length){
+        n = n.split(' ')
+        n = n.map(el => {
+            const conectivos = ['da', 'de', 'das', 'dos']
+            return  conectivos.includes(el) ? el : el.charAt(0).toUpperCase() + el.slice(1)
+        });
+        return n.join(' ')
+    } else {
+        return null
+    }
+}
+
 /**
  * Função para validar se determinada string qualifica como email. Parâmetros para ser considerado como email são: Uma sequência de caractéres alfanuméricos (username), seguidos por um '@' (symbol), outra sequência de caractéres alfanuméricos (domínio) seguidos com um '.' seguido por mais caractéres alfanuméricos (top-level).
  * @param {String} e uma string que que será verificada
@@ -76,12 +96,15 @@ const validarEmail = (e) => {
  * @param {String} data string que será convertida em data
  * @returns {Date | null}
  */
-const validarData = (data) => {
+const validarData = (d) => {
     try{
-        if (data.trim().length > 0){
+        if (d.trim().length > 0){
+
             const reg = new RegExp(/\d{1,2}[\/|-]\d{1,2}[\/|-]\d{2,4}/) // regex pesquisa por dd/mm/yyyy ou dd-mm-yyyy
-            if (data.match(reg)){
-                data = data.split(/[-|\/]/)
+
+            if (d.match(reg)){
+
+                data = d.split(/[-|\/]/)
                 return new Date(`${data[2]}/${data[1]}/${data[0]}`)
             }
             else {
@@ -109,7 +132,7 @@ const validarData = (data) => {
 const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=true) => {
 
 
-    const a = {
+    const aluno = {
         nome,
         sobrenome,
         email : validarEmail(email),
@@ -119,8 +142,11 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
         ativo,
         }
 
+
+    // TODO: Tornar o try-catch no cadastro mais limpo, considerando as funções de validação
+
     // Verifica cada elemento do objeto aluno ====================================================
-    const validarAluno = (aluno) => {return Object.entries(aluno).every((val) => {
+    const validarAluno = (al) => {return Object.entries(al).every((val) => {
         try {
             if (!Boolean(String(val[1]).trim())){
                 throw new Error(`O valor de "${val[0]}" não foi preenchido ou foi preenchido incorretamente`)
@@ -136,8 +162,8 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
         }
     })}
 
-    if (validarAluno(a)) {
-        alunosDB.push(a)
+    if (validarAluno(aluno)) {
+        alunosDB.push(aluno)
         console.info('Aluno cadastrado com sucesso!')
         return true
     }
@@ -149,10 +175,10 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
 // =-------------------------------------------------------------------------------=
 /**
  * Realiza uma busca no alunosDB por um nome ou email estritamente igual ao input
- * @param {String} stringBusca String a ser pesquisado
+ * @param {String} s String a ser pesquisado
  * @returns {Object | Array | null} retorna Object ou array se a pesquisa encontrar um resultado. Retorna null se nenhum nome ou email for encontrado.
  */
-const buscarAluno = (stringBusca) => {
+const buscarAluno = (s) => {
     let resultado
 
     /**
@@ -160,10 +186,10 @@ const buscarAluno = (stringBusca) => {
      * Se true, realiza busca única por email. Se false, realiza busca por nome e retorna um array de todos resultados.
      */
 
-    if (validarEmail(stringBusca)){
-        resultado = alunosDB.find((aluno) => aluno.email === stringBusca) || false
+    if (validarEmail(s)){
+        resultado = alunosDB.find((aluno) => aluno.email === s) || false
     } else {
-        const busca = alunosDB.filter((aluno) => stringBusca === aluno.nome)
+        const busca = alunosDB.filter((aluno) => s === aluno.nome)
         resultado = busca.length ? busca : false
     }
 
