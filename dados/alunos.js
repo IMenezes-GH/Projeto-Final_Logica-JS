@@ -92,7 +92,7 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
         ativo,
         }
 
-    // Verifica cada elemento do objeto aluno
+    // Verifica cada elemento do objeto aluno ====================================================
     const validarAluno = (aluno) => {return Object.entries(aluno).every((val) => {
         try {
             if (!Boolean(String(val[1]).trim())){
