@@ -43,6 +43,15 @@ const alunosDB = [
     nascimento: new Date(2000, 9, 30),
     notas: [3, 4, 8],
     ativo: false
+    },
+    {
+    nome: 'Beatriz',
+    sobrenome: 'Santos Silva',
+    email: 'beatrrisantoss@email.com',
+    turma: 3,
+    nascimento: new Date(2000, 9, 4),
+    notas: [8, 8, 8],
+    ativo: true
     }
 ]
 
@@ -109,3 +118,23 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
     }
 }
 
+const buscarAluno = (stringBusca) => {
+    let resultado
+
+    if (emailValido(stringBusca)){
+        // Pesquisa por email, return único
+        resultado = alunosDB.find((aluno) => aluno.email === stringBusca) || false
+    } else {
+        // pesquisa por nome, return array
+        const busca = alunosDB.filter((aluno) => stringBusca === aluno.nome)
+        resultado = busca.length ? busca : false
+    }
+
+    if (resultado) {
+        console.log(`${resultado.length} aluno${resultado.length > 1 ? 's' : ''} encontrado${resultado.length > 1 ? 's' : ''}:`)
+        return resultado
+    } else {
+        console.log('Nenhum aluno encontrado.')
+        return null
+    }
+}
