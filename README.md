@@ -9,13 +9,13 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 	- [x] código, *number* entre 1 e 10 (no máximo 10 turmas)
 	- [x] máximo, *number* máximo de alunos de 5 a 10
 
-- [ ] **Cadastrar aluno, contendo:**
+- [x] **Cadastrar aluno, contendo:**
 	- [x] nome, *string*
 	- [x] sobrenome, *string*
 	- [x] email, *string*
 	- [x] turma, *number* (sendo um código de turma válido)
 	- [x] nascimento, sendo a data de nascimento do aluno
-	- [ ] notas, sendo um array de números, de no máximo 5 posições
+	- [x] notas, sendo um array de números, de no máximo 5 posições
 	- [x] ativo, *boolean* // padrão true
 ----------------------
 ### Funções:
