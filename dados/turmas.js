@@ -11,9 +11,6 @@ const turmasDB = [
  */
 const turmaExiste = (consultaCodigo) => {
     try {
-        if (!consultaCodigo) {
-            throw new Error('tentativa de consulta sem parâmetro realizada. \n Para realizar uma busca por favor digite um número.')
-        }
         return (!turmasDB.every((turma) => turma.codigo !== consultaCodigo && consultaCodigo))
     } catch (err) {
         console.warn(err.message)
@@ -29,11 +26,18 @@ let quantidadeTurmas = () => {return turmasDB.length}
 const cadastrarTurma = (codigo, maximo = 5) => {
 
     try {
+
+        codigo = parseInt(codigo)
+        maximo = parseInt(maximo)
+
         if (quantidadeTurmas() >= 10){
             throw new Error('Quantidade máxima de turmas excedido (10)')
         }
         else if (codigo > 10 || codigo < 1){
             throw new Error('Códigos para Turmas cadastradas devem ter digitos entre 1 e 10.')
+        }
+        else if (isNaN(codigo) || isNaN(maximo)){
+            throw new Error('Os parâmetros devem ser valores numéricos')
         }
         else if (turmaExiste(codigo)){
             throw new Error('Essa turma já existe.')
@@ -45,7 +49,6 @@ const cadastrarTurma = (codigo, maximo = 5) => {
             turmasDB.push({codigo, maximo})
         }
     } catch (err) {
-        console.error('Algo deu errado.')
         console.error(err.message)
     }
 }
