@@ -70,7 +70,7 @@ const validarNome = (n) => {
         n = n.split(' ')
         n = n.map(el => {
             const conectivos = ['da', 'de', 'das', 'dos']
-            return  conectivos.includes(el) ? el : el.charAt(0).toUpperCase() + el.slice(1)
+            return conectivos.includes(el) ? el : el.charAt(0).toUpperCase() + el.slice(1)
         });
         return n.join(' ')
     } else {
@@ -133,8 +133,8 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
 
 
     const aluno = {
-        nome,
-        sobrenome,
+        nome : validarNome(nome),
+        sobrenome : validarNome(sobrenome),
         email : validarEmail(email),
         turma : turmaExiste(turma),
         nascimento : validarData(nascimento),
