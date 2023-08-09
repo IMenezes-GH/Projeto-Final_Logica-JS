@@ -56,19 +56,40 @@ const alunosDB = [
 ]
 
 // ===============================================================================
+// =-------------------------------------------------------------------------------=
 
 /**
  * Função para validar se determinada string qualifica como email. Parâmetros para ser considerado como email são: Uma sequência de caractéres alfanuméricos (username), seguidos por um '@' (symbol), outra sequência de caractéres alfanuméricos (domínio) seguidos com um '.' seguido por mais caractéres alfanuméricos (top-level).
  * @param {String} e uma string que que será verificada
  * @returns {String | false} retorna o email caso validado, ao contrário retorna false
  */
-const emailValido = (e) => {
+const validarEmail = (e) => {
 
     const emailRegExp = new RegExp(/[\w-\.]+@([\w-]+\.)+[\w-]/, 'g') // RegExp que captura padrão de email
 
     if (e && e.match(emailRegExp)) return e
     return false
 }
+
+const validarData = (data) => {
+    try{
+        if (data.trim().length > 0){
+            const reg = new RegExp(/\d{1,2}[\/|-]\d{1,2}[\/|-]\d{2,4}/) // regex pesquisa por dd/mm/yyyy ou dd-mm-yyyy
+            if (data.match(reg)){
+                data = data.split(/[-|\/]/)
+                return new Date(`${data[2]}/${data[1]}/${data[0]}`)
+            }
+            else {
+                throw new Error('Por favor digite uma data no formato DD/MM/YYYY, DD-MM-YYYY ou YYYY-MM-DD')
+            }
+        }
+    } catch (err){
+        console.error('Formato de data inválido.')
+        return null
+    }
+}
+
+// =-------------------------------------------------------------------------------=
 /**
  * Função para cadastramento de alunos. Aceita 7 parâmetros obrigatórios e 1 opcional
  * @param {String} nome Primeiro nome do aluno
@@ -82,12 +103,13 @@ const emailValido = (e) => {
  */
 const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=true) => {
 
+
     const a = {
         nome,
         sobrenome,
-        email : emailValido(email),
-        turma : turmaExiste(turma) ? turma : null,
-        nascimento,
+        email : validarEmail(email),
+        turma : turmaExiste(turma),
+        nascimento : validarData(nascimento),
         notas,
         ativo,
         }
@@ -119,6 +141,7 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
     }
 }
 
+// =-------------------------------------------------------------------------------=
 /**
  * Realiza uma busca no alunosDB por um nome ou email estritamente igual ao input
  * @param {String} stringBusca String a ser pesquisado
@@ -132,7 +155,7 @@ const buscarAluno = (stringBusca) => {
      * Se true, realiza busca única por email. Se false, realiza busca por nome e retorna um array de todos resultados.
      */
 
-    if (emailValido(stringBusca)){
+    if (validarEmail(stringBusca)){
         resultado = alunosDB.find((aluno) => aluno.email === stringBusca) || false
     } else {
         const busca = alunosDB.filter((aluno) => stringBusca === aluno.nome)

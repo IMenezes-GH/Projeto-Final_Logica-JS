@@ -10,11 +10,7 @@ const turmasDB = [
  * @returns {Boolean} True se a turma já existe, falso se a turma não existir
  */
 const turmaExiste = (consultaCodigo) => {
-    try {
-        return (!turmasDB.every((turma) => turma.codigo !== consultaCodigo && consultaCodigo))
-    } catch (err) {
-        console.warn(err.message)
-    }
+    return (!turmasDB.every((turma) => turma.codigo !== consultaCodigo && consultaCodigo))
 }
 
 let quantidadeTurmas = () => {return turmasDB.length}
