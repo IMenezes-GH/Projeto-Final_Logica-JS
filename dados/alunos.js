@@ -117,6 +117,32 @@ const validarData = (d) => {
     }
 }
 
+/**
+ *  Valida o array de notas
+ * @param {Array} notas Um array de notas que serão avaliado 
+ * @returns {Array | null} Retorna o array convertido em Number caso válido, null caso inválido.
+ */
+const validarNotas = (n) => {
+    try{
+        n.map((nota) => {
+            if (nota >= 0 && nota <= 10){
+                return Number(nota)
+            }
+        })
+
+        if (n.length <= 5){
+            return n
+        } else {
+            console.warn('Máximo de 5 notas podem ser preenchidas')
+            return null
+        }
+
+    } catch (err){
+        console.error('Formato de notas inválido. Por favor preencha as notas dentro de colchetes "[ ]", separadas entre vírgulas')
+        return null
+    }
+}
+
 // =-------------------------------------------------------------------------------=
 /**
  * Função para cadastramento de alunos. Aceita 7 parâmetros obrigatórios e 1 opcional
@@ -138,8 +164,8 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
         email : validarEmail(email),
         turma : turmaExiste(turma),
         nascimento : validarData(nascimento),
-        notas,
-        ativo,
+        notas : validarNotas(notas),
+        ativo : Boolean(ativo),
         }
 
 
