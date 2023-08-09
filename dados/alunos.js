@@ -71,6 +71,11 @@ const validarEmail = (e) => {
     return false
 }
 
+/**
+ * Função para validar e transformar uma determinada data dada em string para Date Object
+ * @param {String} data string que será convertida em data
+ * @returns {Date | null}
+ */
 const validarData = (data) => {
     try{
         if (data.trim().length > 0){
