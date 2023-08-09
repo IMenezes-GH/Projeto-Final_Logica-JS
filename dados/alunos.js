@@ -111,6 +111,7 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
 
     if (validarAluno(a)) {
         alunosDB.push(a)
+        console.info('Aluno cadastrado com sucesso!')
         return true
     }
     else {
