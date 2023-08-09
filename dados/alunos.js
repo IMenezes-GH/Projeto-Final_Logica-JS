@@ -1,4 +1,4 @@
-const alunosDB = [
+let alunosDB = [
     {
     nome : 'Ana',
     sobrenome: 'Clara',
@@ -56,6 +56,7 @@ const alunosDB = [
 ]
 
 // ===============================================================================
+//                  CADASTRO E VALIDAÇÃO DE ALUNO
 // =-------------------------------------------------------------------------------=
 
 
@@ -197,6 +198,9 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
         return false
     }
 }
+// ===============================================================================
+//                  CONSULTA E UPDATE DE ALUNOS
+// =-------------------------------------------------------------------------------=
 
 // =-------------------------------------------------------------------------------=
 /**
@@ -213,17 +217,38 @@ const buscarAluno = (s) => {
      */
 
     if (validarEmail(s)){
-        resultado = alunosDB.find((aluno) => aluno.email === s) || false
+        resultado = alunosDB.findIndex((aluno) => aluno.email === s) ?? -1 // ?? para que 0 seja 0
     } else {
-        const busca = alunosDB.filter((aluno) => s === aluno.nome)
-        resultado = busca.length ? busca : false
+        const busca = alunosDB.filter((aluno, index) => {return s === aluno.nome})
+        resultado = busca.length ? busca : -1
     }
 
-    if (resultado) {
-        console.log(`${resultado.length} aluno${resultado.length > 1 ? 's' : ''} encontrado${resultado.length > 1 ? 's' : ''}:`)
-        return resultado
+    if (resultado && resultado >= 0) {
+        console.log(`${resultado.length || 1} aluno${resultado.length > 1 ? 's' : ''} encontrado${resultado.length > 1 ? 's' : ''}:`)
+        return {index: resultado, aluno: alunosDB[resultado]}
     } else {
         console.log('Nenhum aluno encontrado.')
         return null
+    }
+}
+
+
+const removerAluno = (a) => {
+    try {
+        if (validarEmail(a)){
+            let idAluno = buscarAluno(a) || null
+
+            if (!idAluno) throw new Error('Esse email não corresponde a nenhum aluno no banco de dados.')
+            delete alunosDB[idAluno]
+            alunosDB = alunosDB.filter(Boolean)
+
+            return true
+        }
+        else {
+            throw new Error('Não foi possível deletar esse aluno')
+        }
+
+    } catch (err) {
+        console.error(err.message)
     }
 }
