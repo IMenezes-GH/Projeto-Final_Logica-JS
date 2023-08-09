@@ -19,7 +19,7 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 	- [x] ativo, *boolean* // padrão true
 ----------------------
 ### Funções:
-- [ ] Remover aluno
+- [x] Remover aluno
 - [ ] Atualizar informações do aluno
 - [x] Buscar um aluno especifico
 - [ ] Retornar a lista completa de alunos
