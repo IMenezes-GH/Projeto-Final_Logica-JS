@@ -74,10 +74,10 @@ const emailValido = (e) => {
  * @param {String} nome Primeiro nome do aluno
  * @param {String} sobrenome Sobrenome do aluno
  * @param {String} email Email do aluno
- * @param {Number} turma Turma do aluno ([1 <= turma <= 10])
+ * @param {Number} turma Turma do aluno ([0 < turma < 11])
  * @param {String} nascimento data de nascimento do aluno
- * @param {Array} notas Array de notas do aluno (notas.length <= 5) 
- * @param {Boolean} ativo Se o aluno está ativamente matriculado ou não. Padrão true 
+ * @param {Array} notas Array de notas do aluno (notas.length < 6)
+ * @param {Boolean} ativo Se o aluno está ativamente matriculado ou não. Padrão true
  * @returns {Boolean} True se a função executar com sucesso, caso contrário, false.
  */
 const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=true) => {
@@ -127,7 +127,7 @@ const buscarAluno = (stringBusca) => {
     let resultado
 
     /**
-     * Verifica se o parâmetro de input é um email válido ou não. 
+     * Verifica se o parâmetro de input é um email válido ou não.
      * Se true, realiza busca única por email. Se false, realiza busca por nome e retorna um array de todos resultados.
      */
 
