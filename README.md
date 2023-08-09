@@ -21,7 +21,7 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 ### Funções:
 - [ ] Remover aluno
 - [ ] Atualizar informações do aluno
-- [ ] Buscar um aluno especifico
+- [x] Buscar um aluno especifico
 - [ ] Retornar a lista completa de alunos
 - [x] Retornar quantas turmas tem na escola
 - [ ] Calcular a media do aluno
