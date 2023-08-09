@@ -86,7 +86,7 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
         nome,
         sobrenome,
         email : emailValido(email),
-        turma,
+        turma : turmaExiste(turma) ? turma : null,
         nascimento,
         notas,
         ativo,
