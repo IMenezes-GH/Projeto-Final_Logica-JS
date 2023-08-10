@@ -71,6 +71,20 @@ const validarEmail = (e) => {
 }
 
 /**
+ * 
+ * @param {String} e email a ser pesquisado
+ * @returns {Boolean | null} True se email estiver em uso, falso caso contrário. Null se 'e' não for válida
+ */
+const emailEmUso = (e) => {
+    if (validarEmail(e)){
+        return buscarAluno(e).index !== -1
+    } else {
+        console.warn('Email inválido')
+        return null
+    }
+}
+
+/**
  * Função para validar e transformar uma determinada data dada em string para Date Object
  * @param {String} data string que será convertida em data
  * @returns {Date | null}
@@ -126,3 +140,19 @@ const validarNotas = (n) => {
         return null
     }
 }
+
+const validarAluno = (al) => {return Object.entries(al).every((val) => {
+    try {
+        if (!Boolean(String(val[1]).trim())){
+            throw new Error(`O valor de "${val[0]}" não foi preenchido ou foi preenchido incorretamente`)
+        }
+        else if (!val[1]) {
+            console.warn(`O valor de "${val[0]}" não foi preenchido ou foi preenchido incorretamente`)
+        }
+        else {
+            return Boolean(val)
+        }
+    } catch (err) {
+        console.error(`O valor de ${val[0]} está incorreto ou vazio.`)
+    }
+})}

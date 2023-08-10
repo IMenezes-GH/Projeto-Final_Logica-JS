@@ -22,32 +22,12 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
     const aluno = {
         nome : validarNome(nome),
         sobrenome : validarNome(sobrenome),
-        email : validarEmail(email),
+        email : !emailEmUso(email) ? validarEmail(email) : null,
         turma : turmaExiste(turma),
         nascimento : validarData(nascimento),
         notas : validarNotas(notas),
         ativo : Boolean(ativo),
         }
-
-
-    // TODO: Tornar o try-catch no cadastro mais limpo, considerando as funções de validação
-
-    // Verifica cada elemento do objeto aluno ====================================================
-    const validarAluno = (al) => {return Object.entries(al).every((val) => {
-        try {
-            if (!Boolean(String(val[1]).trim())){
-                throw new Error(`O valor de "${val[0]}" não foi preenchido ou foi preenchido incorretamente`)
-            }
-            else if (!val[1]) {
-                console.warn(`${val[0]} é inválido`)
-            }
-            else {
-                return Boolean(val)
-            }
-        } catch (err) {
-            console.error(`O valor de ${val[0]} está incorreto ou vazio.`)
-        }
-    })}
 
     if (validarAluno(aluno)) {
         alunosDB.push(aluno)
