@@ -327,3 +327,11 @@ const mediaDe = (a) => {
         return false
     }
 }
+
+const alunosAtivos = () => {
+    return alunosDB.filter((aluno) => aluno.ativo)
+}
+
+const alunosInativos = () => {
+    return alunosDB.filter((aluno) => !aluno.ativo)
+}
