@@ -223,7 +223,7 @@ const buscarAluno = (s) => {
         resultado = busca.length ? busca : -1
     }
 
-    if (resultado && resultado >= 0) {
+    if (resultado || Number(resultado) >= 0) {
         console.log(`${resultado.length || 1} aluno${resultado.length > 1 ? 's' : ''} encontrado${resultado.length > 1 ? 's' : ''}:`)
         return {index: resultado, aluno: alunosDB[resultado]}
     } else {
@@ -280,4 +280,34 @@ const atualizarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo)
 
 const listarAlunos = () => {
     console.table(alunosDB)
+}
+
+const mediaDe = (a) => {
+    try {
+        const busca = buscarAluno(a)
+        if (Array.isArray(busca.index)){
+
+            let alunos = busca.index
+
+            let medias = alunos.map((aluno) => {
+                return {aluno: aluno.nome + ' ' + aluno.sobrenome, notas: aluno.notas, media: aluno.notas}
+            })
+            
+            medias = medias.map((a) => {
+                let notas = a.media.length
+                return {
+                    aluno: a.aluno,
+                    notas : a.notas,
+                    média: a.media.reduce((acc, curr) => {
+                            return acc + curr
+                        }, 0) / notas
+                    }
+                })
+
+            console.table(medias)
+        }
+
+    } catch (err) {
+        console.error(err)
+    }
 }
