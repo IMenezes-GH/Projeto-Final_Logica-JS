@@ -28,6 +28,14 @@ const turmaExiste = (consultaCodigo) => {
  */
 let quantidadeTurmas = () => {return turmasDB.length}
 
+const buscaTurma = (t) => {
+    return turmasDB.findIndex((turma) => turma.codigo === t)
+}
+
+
+// ===============================================================================
+//                  VALIDAÇÃO DE DADOS - ALUNOS
+// =-------------------------------------------------------------------------------=
 /**
  * 
  * @param {String} e email a ser pesquisado
@@ -41,10 +49,6 @@ const emailEmUso = (e) => {
         return null
     }
 }
-
-// ===============================================================================
-//                  VALIDAÇÃO DE DADOS - ALUNOS
-// =-------------------------------------------------------------------------------=
 
 /**
  * Função para validar se determinada string qualifica como nome. Transforma os nomes em titlecase onde necessário.
@@ -88,7 +92,7 @@ const validarTurma = (t) => {
             return aluno.turma === t
         })
 
-        return turmaAlunos.length < 10 ? t : null
+        return turmaAlunos.length < turmasDB[buscaTurma(t)].maximo ? t : null
     } else {
         return null
     }
