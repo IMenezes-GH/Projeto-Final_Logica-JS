@@ -277,3 +277,7 @@ const atualizarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo)
         return false
     }
 }
+
+const listarAlunos = () => {
+    console.table(alunosDB)
+}
