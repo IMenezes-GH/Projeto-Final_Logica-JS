@@ -225,8 +225,12 @@ const desativarAluno = (a) => {
     const busca = buscarAluno(a) ?? null
 
     if (busca && validarEmail(a)){
-        alunosDB[busca.index].ativo = false
-        console.info('Aluno desativado')
+        if (alunosDB[busca.index].ativo){
+            alunosDB[busca.index].ativo = false  
+            console.info('Aluno desativado')
+        } else {
+            console.warn('Não foi possível desativar esse aluno')
+        }
     } else {
         console.warn('Para desativar um aluno utilize um email como parâmetro.')
     }
