@@ -1,23 +1,8 @@
-const turmasDB = [
-    {codigo: 1, maximo:5},
-    {codigo: 2, maximo:7},
-    {codigo: 3, maximo:9}
-]
-
 /**
- * Utilidade para consultar se dada turma já existe no banco de dados
- * @param {Number} consultaCodigo Código da turma que será consultada
- * @returns {Boolean} True se a turma já existe, falso se a turma não existir
- */
-const turmaExiste = (consultaCodigo) => {
-    return (!turmasDB.every((turma) => turma.codigo !== consultaCodigo && consultaCodigo))
-}
-
-let quantidadeTurmas = () => {return turmasDB.length}
-/**
- *  Cadastra uma nova turma para turmasDB. Restrições no cadastramento são: Codigo e maximo ambos devem ser maiores ou igual a 1, ou menor e igual a 10. No máximo 10 turmas podem existir
- * @param {*} codigo código da turma que será cadastrada
- * @param {*} maximo  Número máximo de alunos para a turma
+ * 
+ * @param {Number} codigo código da turma 1 <= x <= 10 
+ * @param {Number} maximo Máximo número de alunos na turma 1 <= 1 <= 10
+ * @returns {Boolean} true se o cadastramento ocorrer com sucesso, caso contrário, false
  */
 const cadastrarTurma = (codigo, maximo = 5) => {
 
@@ -43,8 +28,10 @@ const cadastrarTurma = (codigo, maximo = 5) => {
         }
         else {
             turmasDB.push({codigo, maximo})
+            return {codigo, maximo}
         }
     } catch (err) {
         console.error(err.message)
+        return false
     }
 }

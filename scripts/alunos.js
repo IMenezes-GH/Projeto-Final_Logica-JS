@@ -1,159 +1,8 @@
-let alunosDB = [
-    {
-    nome : 'Ana',
-    sobrenome: 'Clara',
-    email : 'anaclara1999@email.com',
-    turma : 1,
-    nascimento : new Date(1999, 11, 3),
-    notas: [5, 2, 7, 8],
-    ativo: true,
-    },
-    {
-    nome : 'Beatriz',
-    sobrenome: 'da Silva',
-    email : 'biabiatriz@email.com',
-    turma : 1,
-    nascimento : new Date(1999, 8, 20),
-    notas: [9, 8, 6, 6, 7],
-    ativo: true,
-    },
-    {
-    nome : 'Cláudio',
-    sobrenome: 'Oliveira de Souza',
-    email : 'ccsoujza.12@email.com',
-    turma : 2,
-    nascimento : '2000-01-9',
-    notas: [6, 6, 7, 8, 9],
-    ativo: true,
-    },
-    {
-    nome: 'Maria Clara',
-    sobrenome: 'Franco Barrichelli',
-    email: 'maria.clara.em@email.com',
-    turma: 3,
-    nascimento: new Date(2000, 3, 19),
-    notas: [7, 6, 3, 4],
-    ativo: true
-    },
-    {
-    nome: 'Felipe',
-    sobrenome: 'Alvez de Oliveira',
-    email: 'darkfelipe2000@email.com',
-    turma: 3,
-    nascimento: new Date(2000, 9, 30),
-    notas: [3, 4, 8],
-    ativo: false
-    },
-    {
-    nome: 'Beatriz',
-    sobrenome: 'Santos Silva',
-    email: 'beatrrisantoss@email.com',
-    turma: 3,
-    nascimento: new Date(2000, 9, 4),
-    notas: [8, 8, 8],
-    ativo: true
-    }
-]
-
-const MEDIA_ESCOLAR = 6
 
 // ===============================================================================
-//                  CADASTRO E VALIDAÇÃO DE ALUNO
+//                  CADASTRO DE ALUNOS
 // =-------------------------------------------------------------------------------=
 
-
-/**
- * Função para validar se determinada string qualifica como nome. Transforma os nomes em titlecase onde necessário.
- * @param {String} n nome para ser validado
- * @returns {String | null} O nome validado ou null caso valor seja inválido
- */
-const validarNome = (n) => {
-    try {
-        n = n.trim()
-        if (n.length){
-            n = n.split(' ')
-            n = n.map(el => {
-                const conectivos = ['da', 'de', 'das', 'dos']
-                return conectivos.includes(el) ? el : el.charAt(0).toUpperCase() + el.slice(1)
-            });
-            return n.join(' ')
-        } else {
-            return null
-        }
-    } catch (err){
-        return null
-    }
-}
-
-/**
- * Função para validar se determinada string qualifica como email. Parâmetros para ser considerado como email são: Uma sequência de caractéres alfanuméricos (username), seguidos por um '@' (symbol), outra sequência de caractéres alfanuméricos (domínio) seguidos com um '.' seguido por mais caractéres alfanuméricos (top-level).
- * @param {String} e uma string que que será verificada
- * @returns {String | false} retorna o email caso validado, ao contrário retorna false
- */
-const validarEmail = (e) => {
-
-    const emailRegExp = new RegExp(/[\w-\.]+@([\w-]+\.)+[\w-]/, 'g') // RegExp que captura padrão de email
-
-    if (e && e.match(emailRegExp)) return e
-    return false
-}
-
-/**
- * Função para validar e transformar uma determinada data dada em string para Date Object
- * @param {String} data string que será convertida em data
- * @returns {Date | null}
- */
-const validarData = (d) => {
-    try{
-        if (!d) return null
-
-        if (d.trim().length > 0){
-
-            const reg = new RegExp(/\d{1,2}[\/|-]\d{1,2}[\/|-]\d{2,4}/) // regex pesquisa por dd/mm/yyyy ou dd-mm-yyyy
-
-            if (d.match(reg)){
-
-                data = d.split(/[-|\/]/)
-                return new Date(`${data[2]}/${data[1]}/${data[0]}`)
-            }
-            else {
-                throw new Error('Por favor digite uma data no formato DD/MM/YYYY, DD-MM-YYYY ou YYYY-MM-DD')
-            }
-        } else {
-            return null
-        }
-    } catch (err){
-        console.error('Formato de data inválido.')
-        return null
-    }
-}
-
-/**
- *  Valida o array de notas
- * @param {Array} notas Um array de notas que serão avaliado 
- * @returns {Array | null} Retorna o array convertido em Number caso válido, null caso inválido.
- */
-const validarNotas = (n) => {
-    if (!n) return null
-    try{
-        n.map((nota) => {
-            if (nota >= 0 && nota <= 10){
-                return Number(nota)
-            }
-        })
-
-        if (n.length <= 5){
-            return n
-        } else {
-            console.warn('Máximo de 5 notas podem ser preenchidas')
-            return null
-        }
-
-    } catch (err){
-        console.error('Formato de notas inválido. Por favor preencha as notas dentro de colchetes "[ ]", separadas entre vírgulas')
-        return null
-    }
-}
 
 // =-------------------------------------------------------------------------------=
 /**
@@ -309,16 +158,12 @@ const atualizarAluno = (emailID, {nome, sobrenome, email, turma, nascimento, not
 const listarAlunos = () => {
     console.table(alunosDB)
 }
-/**
- * Calcula média do array parametrizado
- * @param {array} notas Um array de valores numéricos para calcular a média
- * @returns {Number} Média do array
- */
-const media = (notas) => {
-    let N = notas.length || 0
-    return notas.reduce((acc, curr) => acc + curr, 0) / N
-} 
 
+/**
+ * 
+ * @param {String} a email ou nome do(s) alunos para cálculo de média das notas 
+ * @returns {Array | Number | Boolean} A média ou lista de médias calculadas
+ */
 const mediaDe = (a = '*') => {
     try {
         const busca = buscarAluno(a)
@@ -402,17 +247,3 @@ const abaixoDaMedia = (nota = MEDIA_ESCOLAR) => {
     return alunosDB.filter((aluno) => media(aluno.notas) < nota)
 }
 
-// =========================================================================
-// RELATÓRIO GERAL
-
-/**
- * Gera um relatório com a quantidade de alunos, quantidade de turmas, alunos acima da média, alunos abaixo da média e todos os alunos junto da média
- * @returns {void} 
- */
-const relatorio = () => {
-    console.log(`Quantidade de alunos: ${alunosDB.length}`)
-    console.log(`Quantidade de turmas: ${turmasDB.length}`)
-    console.table(acimaDaMedia())
-    console.table(abaixoDaMedia())
-    console.table(mediaDe())
-}
