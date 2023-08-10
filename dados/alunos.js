@@ -305,14 +305,6 @@ const mediaDe = (a = '*') => {
             let medias = alunos.map((aluno) => {
                 return {aluno: aluno.nome + ' ' + aluno.sobrenome, notas: aluno.notas, media: media(aluno.notas)}
             })
-            
-            // medias = medias.map((a) => {
-            //     return {
-            //         aluno: a.aluno,
-            //         notas : a.notas,
-            //         média: media(a.notas)
-            //         }
-            //     })
 
             console.table(medias)
             return true
@@ -334,14 +326,26 @@ const mediaDe = (a = '*') => {
     }
 }
 
+/**
+ * Retorna uma lista com todos alunos ativos
+ * @returns array
+ */
 const alunosAtivos = () => {
     return alunosDB.filter((aluno) => aluno.ativo)
 }
 
+/**
+ * Retorna uma lista com todos alunos inativos
+ * @returns array
+ */
 const alunosInativos = () => {
     return alunosDB.filter((aluno) => !aluno.ativo)
 }
 
+/**
+ * Desativa um aluno, caso exista
+ * @returns void
+ */
 const desativarAluno = (a) => {
     const busca = buscarAluno(a) ?? null
 
@@ -350,9 +354,20 @@ const desativarAluno = (a) => {
     }
 }
 
+/**
+ * Gera uma lista com todos alunos com a média de notas acima do valor parametrizado
+ * @param {Number=} nota nota que será comparada no cálculo de média  
+ * @returns {array} todos alunos acima da nota determinada
+ */
 const acimaDaMedia = (nota = MEDIA_ESCOLAR) => {
     return alunosDB.filter((aluno) => media(aluno.notas) >= nota)
 }
+
+/**
+ * Gera uma lista com todos alunos com a média de notas abaixo do valor parametrizado
+ * @param {Number=} nota nota que será comparada no cálculo de média  
+ * @returns {array} todos alunos abaixo da nota determinada
+ */
 const abaixoDaMedia = (nota = MEDIA_ESCOLAR) => {
     return alunosDB.filter((aluno) => media(aluno.notas) < nota)
 }
@@ -360,6 +375,10 @@ const abaixoDaMedia = (nota = MEDIA_ESCOLAR) => {
 // =========================================================================
 // RELATÓRIO GERAL
 
+/**
+ * Gera um relatório com a quantidade de alunos, quantidade de turmas, alunos acima da média, alunos abaixo da média e todos os alunos junto da média
+ * @returns void 
+ */
 const relatorio = () => {
     console.log(`Quantidade de alunos: ${alunosDB.length}`)
     console.log(`Quantidade de turmas: ${turmasDB.length}`)
