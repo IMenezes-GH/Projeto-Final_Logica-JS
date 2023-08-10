@@ -165,3 +165,22 @@ const validarNotas = (n) => {
         throw new Error('Máximo de 5 notas podem ser preenchidas')
     }
 }
+
+const validarHelper = (dado, tipo) => {
+    switch (tipo){
+        case 'nome':
+        case 'sobrenome':
+            return validarNome(dado)
+        case 'email':
+            return validarEmail(dado)
+        case 'nascimento':
+            return validarData(dado)
+        case 'notas':
+            return validarNotas(dado)
+        case 'turma':
+            return validarTurma(dado)
+        default:
+            console.log('Esse tipo de dado não pode ser validado')
+            break
+    }
+}

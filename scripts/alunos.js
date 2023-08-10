@@ -76,7 +76,7 @@ const buscarAluno = (s) => {
  */
 const removerAluno = (a) => {
     try {
-        if (validarEmail(a)){
+        if (a.match(EMAIL_REGEX)){
             let idAluno = buscarAluno(a).index || null
 
             if (!idAluno) throw new Error('Esse email não corresponde a nenhum aluno no banco de dados.')
@@ -101,22 +101,22 @@ const removerAluno = (a) => {
  * @param {Object} params Dados para atualizar no cadastro do aluno 
  * @returns {Object} os dados atualizados do aluno
  */
-const atualizarAluno = (emailID, {nome, sobrenome, email, turma, nascimento, notas, ativo}) => {
+function atualizarAluno(emailID, {nome, sobrenome, email, turma, nascimento, notas, ativo}){
+    console.log(arguments)
+    
     try {
         if (!emailID) throw new Error('Por favor preencha o email, seguido de um objeto com os dados a serem atualizados')
+        
+        let novosDados = arguments[1]  
         const aluno = buscarAluno(emailID) ?? null
-
+        
         if (aluno){
             let a = alunosDB[aluno.index]
-            alunosDB[aluno.index] = {
-                nome : validarNome(nome) ?? a.nome,
-                sobrenome : validarNome(sobrenome) ?? a.sobrenome,
-                email : validarEmail(email) ?? a.email,
-                turma : turmaExiste(turma) ?? a.turma,
-                nascimento : validarData(nascimento) ?? a.nascimento,
-                notas : validarNotas(notas) ?? a.notas,
-                ativo : Boolean(ativo) ?? a.ativo,
-                }
+
+            for (key in novosDados){
+                alunosDB[0][key] = validarHelper(novosDados[key], key)
+            }
+
             return a
         } else {
             throw new Error('Não foi possível atualizar esse aluno')
@@ -201,7 +201,7 @@ const alunosInativos = () => {
 const desativarAluno = (a) => {
     const busca = buscarAluno(a) ?? null
 
-    if (busca && validarEmail(a)){
+    if (busca && a.match(EMAIL_REGEX)){
         if (alunosDB[busca.index].ativo){
             alunosDB[busca.index].ativo = false  
             console.info('Aluno desativado')
