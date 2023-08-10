@@ -282,6 +282,11 @@ const listarAlunos = () => {
     console.table(alunosDB)
 }
 
+const media = (notas) => {
+    let N = notas.length
+    return notas.reduce((acc, curr) => acc + curr, 0) / N
+} 
+
 const mediaDe = (a) => {
     try {
         const busca = buscarAluno(a)
@@ -294,13 +299,10 @@ const mediaDe = (a) => {
             })
             
             medias = medias.map((a) => {
-                let notas = a.media.length
                 return {
                     aluno: a.aluno,
                     notas : a.notas,
-                    média: a.media.reduce((acc, curr) => {
-                            return acc + curr
-                        }, 0) / notas
+                    média: media(a.notas)
                     }
                 })
 
@@ -309,13 +311,10 @@ const mediaDe = (a) => {
 
         } else {
             let aluno = busca.aluno
-            let quantidadeNotas = aluno.notas.length
             let dados = {
                 aluno: aluno.nome + ' ' + aluno.sobrenome,
                 notas: aluno.notas,
-                media: aluno.notas.reduce((acc, curr) => {
-                    return acc + curr
-                }, 0) / quantidadeNotas
+                media: media(aluno.notas)
             }
 
             console.log(dados)
@@ -342,4 +341,9 @@ const desativarAluno = (a) => {
     if (busca && validarEmail(a)){
         alunosDB[busca.index].ativo = false
     }
+}
+
+
+const acimaDaMedia = () => {
+    return alunosDB.filter((aluno) => media(aluno.notas) >= 6)
 }
