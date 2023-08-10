@@ -56,7 +56,7 @@ const buscaTurma = (t) => {
 /**
  * Função para validar se determinada string qualifica como nome. Transforma os nomes em titlecase onde necessário.
  * @param {String} n nome para ser validado
- * @returns {String | null} O nome validado ou null caso valor seja inválido
+ * @returns {String} O nome validado ou null caso valor seja inválido
  */
 const validarNome = (n) => {
     if (!n) throw new Error('Por favor digite um nome/sobrenome')
@@ -77,7 +77,7 @@ const validarNome = (n) => {
 /**
  * Função para validar se determinada string qualifica como email. Parâmetros para ser considerado como email são: Uma sequência de caractéres alfanuméricos (username), seguidos por um '@' (symbol), outra sequência de caractéres alfanuméricos (domínio) seguidos com um '.' seguido por mais caractéres alfanuméricos (top-level).
  * @param {String} e uma string que que será verificada
- * @returns {String | false} retorna o email caso validado, ao contrário retorna false
+ * @returns {String} retorna o email caso validado, ao contrário retorna false
  */
 const validarEmail = (e) => {
     if (!e) throw new Error('Por favor digite um email')
@@ -116,7 +116,7 @@ const validarTurma = (t) => {
 /**
  * Função para validar e transformar uma determinada data dada em string para Date Object
  * @param {String} data string que será convertida em data
- * @returns {Date | null}
+ * @returns {Date}
  */
 const validarData = (d) => {
     if (d && d.trim().length > 0){
@@ -139,7 +139,7 @@ const validarData = (d) => {
 /**
  *  Valida o array de notas
  * @param {Array} notas Um array de notas que serão avaliado 
- * @returns {Array | null} Retorna o array convertido em Number caso válido, null caso inválido.
+ * @returns {Array} Retorna o array convertido em Number caso válido, null caso inválido.
  */
 const validarNotas = (n) => {
     if (!n) throw new Error('Por favor digite as notas.')
