@@ -305,9 +305,25 @@ const mediaDe = (a) => {
                 })
 
             console.table(medias)
+            return true
+
+        } else {
+            let aluno = busca.aluno
+            let quantidadeNotas = aluno.notas.length
+            let dados = {
+                aluno: aluno.nome + ' ' + aluno.sobrenome,
+                notas: aluno.notas,
+                media: aluno.notas.reduce((acc, curr) => {
+                    return acc + curr
+                }, 0) / quantidadeNotas
+            }
+
+            console.log(dados)
+            return dados.media
         }
 
     } catch (err) {
-        console.error(err)
+        console.error('Não foi possível calcular a média')
+        return false
     }
 }
