@@ -236,7 +236,7 @@ const buscarAluno = (s) => {
 const removerAluno = (a) => {
     try {
         if (validarEmail(a)){
-            let idAluno = buscarAluno(a) || null
+            let idAluno = buscarAluno(a).index || null
 
             if (!idAluno) throw new Error('Esse email não corresponde a nenhum aluno no banco de dados.')
             delete alunosDB[idAluno]
@@ -250,5 +250,30 @@ const removerAluno = (a) => {
 
     } catch (err) {
         console.error(err.message)
+    }
+}
+
+const atualizarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo) => {
+    try {
+        const aluno = buscarAluno(email) ?? null
+
+        if (aluno){
+            alunosDB[aluno.index] = {
+                nome : validarNome(nome),
+                sobrenome : validarNome(sobrenome),
+                email : validarEmail(email),
+                turma : turmaExiste(turma),
+                nascimento : validarData(nascimento),
+                notas : validarNotas(notas),
+                ativo : Boolean(ativo),
+                }
+            return true
+        } else {
+            throw new Error('Não foi possível atualizar esse aluno')
+        }
+
+    } catch (err) {
+        console.error(err)
+        return false
     }
 }
