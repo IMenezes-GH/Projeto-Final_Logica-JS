@@ -30,6 +30,11 @@ const turmaExiste = (consultaCodigo) => {
  */
 let quantidadeTurmas = () => {return turmasDB.length}
 
+/**
+ * 
+ * @param {String} t Turma a ser pesquisa 
+ * @returns {Number} o index da turma pesquisa. -1 caso a turma não seja encontrada
+ */
 const buscaTurma = (t) => {
     return turmasDB.findIndex((turma) => turma.codigo === t)
 }
