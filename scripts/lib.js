@@ -38,20 +38,6 @@ const buscaTurma = (t) => {
 // ===============================================================================
 //                  VALIDAÇÃO DE DADOS - ALUNOS
 // =-------------------------------------------------------------------------------=
-// /**
-//  * 
-//  * @param {String} e email a ser pesquisado
-//  * @returns {Boolean | null} True se email estiver em uso, falso caso contrário. Null se 'e' não for válida
-//  */
-// const emailEmUso = (e) => {
-//     if (!e) throw new Error('Por favor digite um email')
-
-//     if (validarEmail(e)){
-//         return 
-//     } else {
-//         throw new Error('Email inválido')
-//     }
-// }
 
 /**
  * Função para validar se determinada string qualifica como nome. Transforma os nomes em titlecase onde necessário.
