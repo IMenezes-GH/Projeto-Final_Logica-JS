@@ -23,7 +23,7 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
         nome : validarNome(nome),
         sobrenome : validarNome(sobrenome),
         email : !emailEmUso(email) ? validarEmail(email) : null,
-        turma : turmaExiste(turma),
+        turma : validarTurma(turma),
         nascimento : validarData(nascimento),
         notas : validarNotas(notas),
         ativo : Boolean(ativo),

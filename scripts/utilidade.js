@@ -82,6 +82,18 @@ const validarEmail = (e) => {
     return false
 }
 
+const validarTurma = (t) => {
+    if (turmaExiste(t)){
+        const turmaAlunos = alunosDB.filter((aluno) => {
+            return aluno.turma === t
+        })
+
+        return turmaAlunos.length < 10 ? t : null
+    } else {
+        return null
+    }
+}
+
 /**
  * Função para validar e transformar uma determinada data dada em string para Date Object
  * @param {String} data string que será convertida em data
