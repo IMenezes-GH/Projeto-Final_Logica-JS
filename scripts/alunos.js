@@ -18,24 +18,22 @@
  */
 const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=true) => {
 
-
-    const aluno = {
-        nome : validarNome(nome),
-        sobrenome : validarNome(sobrenome),
-        email : !emailEmUso(email) ? validarEmail(email) : null,
-        turma : validarTurma(turma),
-        nascimento : validarData(nascimento),
-        notas : validarNotas(notas),
-        ativo : Boolean(ativo),
+    try{
+        const aluno = {
+            nome : validarNome(nome),
+            sobrenome : validarNome(sobrenome),
+            email : validarEmail(email),
+            turma : validarTurma(turma),
+            nascimento : validarData(nascimento),
+            notas : validarNotas(notas),
+            ativo : Boolean(ativo),
         }
+            alunosDB.push(aluno)
+            console.info('Aluno cadastrado com sucesso!')
+            return true
 
-    if (validarAluno(aluno)) {
-        alunosDB.push(aluno)
-        console.info('Aluno cadastrado com sucesso!')
-        return true
-    }
-    else {
-        return false
+    } catch (err) {
+        console.error(err.message)
     }
 }
 // ===============================================================================
@@ -56,15 +54,14 @@ const buscarAluno = (s) => {
      * Se true, realiza busca única por email. Se false, realiza busca por nome e retorna um array de todos resultados.
      */
 
-    if (validarEmail(s)){
+    if (s.match(EMAIL_REGEX)){
         resultado = alunosDB.findIndex((aluno) => aluno.email === s) ?? -1 // ?? para que 0 seja 0
     } else {
-        const busca = alunosDB.filter((aluno, index) => {return s === aluno.nome})
+        const busca = alunosDB.filter((aluno) => {return s === aluno.nome})
         resultado = busca.length ? busca : -1
     }
 
     if (resultado || Number(resultado) >= 0) {
-        // console.log(`${resultado.length || 1} aluno${resultado.length > 1 ? 's' : ''} encontrado${resultado.length > 1 ? 's' : ''}:`)
         return {index: resultado, aluno: alunosDB[resultado]}
     } else {
         console.log('Nenhum aluno encontrado.')
