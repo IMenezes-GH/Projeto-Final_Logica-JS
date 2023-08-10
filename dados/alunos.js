@@ -287,24 +287,30 @@ const media = (notas) => {
     return notas.reduce((acc, curr) => acc + curr, 0) / N
 } 
 
-const mediaDe = (a) => {
+const mediaDe = (a = '*') => {
     try {
         const busca = buscarAluno(a)
-        if (Array.isArray(busca.index)){
+        if (a === '*'){
+            let medias = alunosDB.map((aluno) => {
+                return {aluno: aluno.nome + ' ' + aluno.sobrenome, notas: aluno.notas, media: media(aluno.notas)}
+            })
+            return medias
+        }
+        else if (Array.isArray(busca.index)){
 
             let alunos = busca.index
 
             let medias = alunos.map((aluno) => {
-                return {aluno: aluno.nome + ' ' + aluno.sobrenome, notas: aluno.notas, media: aluno.notas}
+                return {aluno: aluno.nome + ' ' + aluno.sobrenome, notas: aluno.notas, media: media(aluno.notas)}
             })
             
-            medias = medias.map((a) => {
-                return {
-                    aluno: a.aluno,
-                    notas : a.notas,
-                    média: media(a.notas)
-                    }
-                })
+            // medias = medias.map((a) => {
+            //     return {
+            //         aluno: a.aluno,
+            //         notas : a.notas,
+            //         média: media(a.notas)
+            //         }
+            //     })
 
             console.table(medias)
             return true
@@ -317,7 +323,6 @@ const mediaDe = (a) => {
                 media: media(aluno.notas)
             }
 
-            console.log(dados)
             return dados.media
         }
 
@@ -343,7 +348,20 @@ const desativarAluno = (a) => {
     }
 }
 
-
 const acimaDaMedia = () => {
     return alunosDB.filter((aluno) => media(aluno.notas) >= 6)
+}
+const abaixoDaMedia = () => {
+    return alunosDB.filter((aluno) => media(aluno.notas) < 6)
+}
+
+// =========================================================================
+// RELATÓRIO GERAL
+
+const relatorio = () => {
+    console.log(`Quantidade de alunos: ${alunosDB.length}`)
+    console.log(`Quantidade de turmas: ${turmasDB.length}`)
+    console.table(acimaDaMedia())
+    console.table(abaixoDaMedia())
+    console.table(mediaDe())
 }

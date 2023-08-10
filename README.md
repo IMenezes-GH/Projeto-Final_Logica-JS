@@ -28,14 +28,14 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 - [x] Desativar aluno
 - [x] Retornar a lista apenas com alunos ativos
 - [x] Retornar a lista apenas com alunos inativos
-- [ ] Retornar os alunos que estão com a média esperada
+- [x] Retornar os alunos que estão com a média esperada
 ----------------------
-- [ ] **Relatório completo com os seguintes retornos:**
-	- [ ] Quantidade de alunos
-	- [ ] Quantidade de turmas
-	- [ ] Alunos que estão com a média esperada
-	- [ ] Alunos que estão abaixo da média esperada
-	- [ ] Retornar alunos com a média calculada
+- [x] **Relatório completo com os seguintes retornos:**
+	- [x] Quantidade de alunos
+	- [x] Quantidade de turmas
+	- [x] Alunos que estão com a média esperada
+	- [x] Alunos que estão abaixo da média esperada
+	- [x] Retornar alunos com a média calculada
 
 ## Informações importantes:
 
