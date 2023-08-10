@@ -22,8 +22,25 @@ const turmaExiste = (consultaCodigo) => {
     return (!turmasDB.every((turma) => turma.codigo !== consultaCodigo && consultaCodigo))
 }
 
+/**
+ * Retorna a quantidade de turmas cadastradas
+ * @returns {Number}
+ */
 let quantidadeTurmas = () => {return turmasDB.length}
 
+/**
+ * 
+ * @param {String} e email a ser pesquisado
+ * @returns {Boolean | null} True se email estiver em uso, falso caso contrário. Null se 'e' não for válida
+ */
+const emailEmUso = (e) => {
+    if (validarEmail(e)){
+        return buscarAluno(e).index !== -1
+    } else {
+        console.warn('Email inválido')
+        return null
+    }
+}
 
 // ===============================================================================
 //                  VALIDAÇÃO DE DADOS - ALUNOS
@@ -63,20 +80,6 @@ const validarEmail = (e) => {
 
     if (e && e.match(emailRegExp)) return e
     return false
-}
-
-/**
- * 
- * @param {String} e email a ser pesquisado
- * @returns {Boolean | null} True se email estiver em uso, falso caso contrário. Null se 'e' não for válida
- */
-const emailEmUso = (e) => {
-    if (validarEmail(e)){
-        return buscarAluno(e).index !== -1
-    } else {
-        console.warn('Email inválido')
-        return null
-    }
 }
 
 /**
