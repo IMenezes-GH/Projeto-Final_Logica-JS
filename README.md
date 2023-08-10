@@ -40,17 +40,17 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 ## Informações importantes:
 
 
-- **A média da escola é 6**
+- **A média da escola é 6** ✓
 - **Não cadastrar/atualizar turmas ou alunos duplicados (alunos/email e turma/código)**
-- **Não cadastrar/atualizar turmas com o código fora do escopo (código e número máximo de alunos)**
+- **Não cadastrar/atualizar turmas com o código fora do escopo (código e número máximo de alunos)** ✓
 - **Não cadastras/atualizar alunos menores de 16 anos**
-- **Não mostrar no console mensagens de erro genéricas (padrões do navegador)**
+- **Não mostrar no console mensagens de erro genéricas (padrões do navegador)** ✓
 - **Não cadastrar alunos em turmas inexistentes** ✓
 - **O nome do aluno não deve conter espaço extra no começo ou no fim** ✓
 - **O nome do aluno deve iniciar com letra Maiúscula** ✓
 - **O formato do e-mail do aluno deve ser válido** ✓
-- **Você mesmo irá gerar os dados para realizar o projeto e apresentar os dados necessários para rodar o projeto**
-- **O projeto deverá ser executado no console do navegador**
+- **Você mesmo irá gerar os dados para realizar o projeto e apresentar os dados necessários para rodar o projeto** ✓
+- **O projeto deverá ser executado no console do navegador** ✓
 
 
 ## ***Funcionalidade extra***

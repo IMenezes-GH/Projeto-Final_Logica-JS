@@ -55,6 +55,8 @@ let alunosDB = [
     }
 ]
 
+const MEDIA_ESCOLAR = 6
+
 // ===============================================================================
 //                  CADASTRO E VALIDAÇÃO DE ALUNO
 // =-------------------------------------------------------------------------------=
@@ -348,11 +350,11 @@ const desativarAluno = (a) => {
     }
 }
 
-const acimaDaMedia = () => {
-    return alunosDB.filter((aluno) => media(aluno.notas) >= 6)
+const acimaDaMedia = (nota = MEDIA_ESCOLAR) => {
+    return alunosDB.filter((aluno) => media(aluno.notas) >= nota)
 }
-const abaixoDaMedia = () => {
-    return alunosDB.filter((aluno) => media(aluno.notas) < 6)
+const abaixoDaMedia = (nota = MEDIA_ESCOLAR) => {
+    return alunosDB.filter((aluno) => media(aluno.notas) < nota)
 }
 
 // =========================================================================
