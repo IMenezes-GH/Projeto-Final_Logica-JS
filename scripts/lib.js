@@ -11,6 +11,15 @@ const media = (notas) => {
     return notas.reduce((acc, curr) => acc + curr, 0) / N
 } 
 
+const calcularIdade = (d) => {
+    let data_inicial = d
+    let data_final = new Date()
+
+    let data_ms = new Date(data_final.getTime() - data_inicial.getTime())
+    
+    return data_ms.getUTCFullYear() - 1970
+}
+
 // ===============================================================================
 //                  VALIDAÇÃO DE DADOS - TURMAS
 // =-------------------------------------------------------------------------------=
@@ -115,8 +124,16 @@ const validarData = (d) => {
 
         if (d.match(DATA_REGEX)){ //
 
-            data = d.split(/[-|\/]/)
-            return new Date(`${data[2]}/${data[1]}/${data[0]}`)
+            let data = d.split(/[-|\/]/)
+            data = new Date(`${data[2]}/${data[1]}/${data[0]}`)
+            const idade = calcularIdade(data)
+
+            if (idade >= 16){ // Checa se a data de nascimento do aluno é maior ou igual à 16
+                return data
+            } else {
+                throw new Error('Aluno precisa ter 16 anos de idade ou mais')
+            }
+
         }
         else {
             throw new Error('A data precisa estar no formato DD/MM/YYYY, DD-MM-YYYY ou YYYY-MM-DD')
