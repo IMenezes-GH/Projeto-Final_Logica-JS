@@ -84,7 +84,7 @@ const buscarAluno = (s) => {
     }
 
     if (resultado || Number(resultado) >= 0) {
-        console.log(`${resultado.length || 1} aluno${resultado.length > 1 ? 's' : ''} encontrado${resultado.length > 1 ? 's' : ''}:`)
+        // console.log(`${resultado.length || 1} aluno${resultado.length > 1 ? 's' : ''} encontrado${resultado.length > 1 ? 's' : ''}:`)
         return {index: resultado, aluno: alunosDB[resultado]}
     } else {
         console.log('Nenhum aluno encontrado.')
@@ -226,6 +226,9 @@ const desativarAluno = (a) => {
 
     if (busca && validarEmail(a)){
         alunosDB[busca.index].ativo = false
+        console.info('Aluno desativado')
+    } else {
+        console.warn('Para desativar um aluno utilize um email como parâmetro.')
     }
 }
 
