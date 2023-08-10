@@ -68,15 +68,19 @@ const MEDIA_ESCOLAR = 6
  * @returns {String | null} O nome validado ou null caso valor seja inválido
  */
 const validarNome = (n) => {
-    n = n.trim()
-    if (n.length){
-        n = n.split(' ')
-        n = n.map(el => {
-            const conectivos = ['da', 'de', 'das', 'dos']
-            return conectivos.includes(el) ? el : el.charAt(0).toUpperCase() + el.slice(1)
-        });
-        return n.join(' ')
-    } else {
+    try {
+        n = n.trim()
+        if (n.length){
+            n = n.split(' ')
+            n = n.map(el => {
+                const conectivos = ['da', 'de', 'das', 'dos']
+                return conectivos.includes(el) ? el : el.charAt(0).toUpperCase() + el.slice(1)
+            });
+            return n.join(' ')
+        } else {
+            return null
+        }
+    } catch (err){
         return null
     }
 }
@@ -101,6 +105,8 @@ const validarEmail = (e) => {
  */
 const validarData = (d) => {
     try{
+        if (!d) return null
+
         if (d.trim().length > 0){
 
             const reg = new RegExp(/\d{1,2}[\/|-]\d{1,2}[\/|-]\d{2,4}/) // regex pesquisa por dd/mm/yyyy ou dd-mm-yyyy
@@ -113,6 +119,8 @@ const validarData = (d) => {
             else {
                 throw new Error('Por favor digite uma data no formato DD/MM/YYYY, DD-MM-YYYY ou YYYY-MM-DD')
             }
+        } else {
+            return null
         }
     } catch (err){
         console.error('Formato de data inválido.')
@@ -126,6 +134,7 @@ const validarData = (d) => {
  * @returns {Array | null} Retorna o array convertido em Number caso válido, null caso inválido.
  */
 const validarNotas = (n) => {
+    if (!n) return null
     try{
         n.map((nota) => {
             if (nota >= 0 && nota <= 10){
@@ -234,7 +243,11 @@ const buscarAluno = (s) => {
     }
 }
 
-
+/**
+ * Remove um aluno do banco de dados determinado pelo email
+ * @param {String} a email do aluno a ser deletado 
+ * @returns {Boolean} true se o aluno for removido com sucesso, ao contrário, false.
+ */
 const removerAluno = (a) => {
     try {
         if (validarEmail(a)){
@@ -252,40 +265,57 @@ const removerAluno = (a) => {
 
     } catch (err) {
         console.error(err.message)
+        return false
     }
 }
 
-const atualizarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo) => {
+/**
+ * Atualiza os dados de um aluno, tendo como base o email do aluno
+ * @param {*} emailID Email do aluno que terá os dados atualizados
+ * @param {Object} params Dados para atualizar no cadastro do aluno 
+ * @returns {Object} os dados atualizados do aluno
+ */
+const atualizarAluno = (emailID, {nome, sobrenome, email, turma, nascimento, notas, ativo}) => {
     try {
-        const aluno = buscarAluno(email) ?? null
+        if (!emailID) throw new Error('Por favor preencha o email, seguido de um objeto com os dados a serem atualizados')
+        const aluno = buscarAluno(emailID) ?? null
 
         if (aluno){
+            let a = alunosDB[aluno.index]
             alunosDB[aluno.index] = {
-                nome : validarNome(nome),
-                sobrenome : validarNome(sobrenome),
-                email : validarEmail(email),
-                turma : turmaExiste(turma),
-                nascimento : validarData(nascimento),
-                notas : validarNotas(notas),
-                ativo : Boolean(ativo),
+                nome : validarNome(nome) ?? a.nome,
+                sobrenome : validarNome(sobrenome) ?? a.sobrenome,
+                email : validarEmail(email) ?? a.email,
+                turma : turmaExiste(turma) ?? a.turma,
+                nascimento : validarData(nascimento) ?? a.nascimento,
+                notas : validarNotas(notas) ?? a.notas,
+                ativo : Boolean(ativo) ?? a.ativo,
                 }
-            return true
+            return a
         } else {
             throw new Error('Não foi possível atualizar esse aluno')
         }
 
     } catch (err) {
-        console.error(err)
+        console.error(err.message)
         return false
     }
 }
 
+/**
+ * Lista todos os alunos matriculados na escola em uma tabela
+ * @returns {void}
+ */
 const listarAlunos = () => {
     console.table(alunosDB)
 }
-
+/**
+ * Calcula média do array parametrizado
+ * @param {array} notas Um array de valores numéricos para calcular a média
+ * @returns {Number} Média do array
+ */
 const media = (notas) => {
-    let N = notas.length
+    let N = notas.length || 0
     return notas.reduce((acc, curr) => acc + curr, 0) / N
 } 
 
@@ -377,7 +407,7 @@ const abaixoDaMedia = (nota = MEDIA_ESCOLAR) => {
 
 /**
  * Gera um relatório com a quantidade de alunos, quantidade de turmas, alunos acima da média, alunos abaixo da média e todos os alunos junto da média
- * @returns void 
+ * @returns {void} 
  */
 const relatorio = () => {
     console.log(`Quantidade de alunos: ${alunosDB.length}`)
