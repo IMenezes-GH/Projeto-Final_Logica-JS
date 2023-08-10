@@ -335,3 +335,11 @@ const alunosAtivos = () => {
 const alunosInativos = () => {
     return alunosDB.filter((aluno) => !aluno.ativo)
 }
+
+const desativarAluno = (a) => {
+    const busca = buscarAluno(a) ?? null
+
+    if (busca && validarEmail(a)){
+        alunosDB[busca.index].ativo = false
+    }
+}

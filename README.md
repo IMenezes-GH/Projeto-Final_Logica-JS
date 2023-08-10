@@ -25,7 +25,7 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 - [x] Retornar a lista completa de alunos
 - [x] Retornar quantas turmas tem na escola
 - [x] Calcular a media do aluno
-- [ ] Desativar aluno
+- [x] Desativar aluno
 - [x] Retornar a lista apenas com alunos ativos
 - [x] Retornar a lista apenas com alunos inativos
 - [ ] Retornar os alunos que estão com a média esperada
