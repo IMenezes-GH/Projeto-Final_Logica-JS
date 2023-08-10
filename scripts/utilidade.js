@@ -23,11 +23,6 @@ const turmaExiste = (consultaCodigo) => {
 }
 
 let quantidadeTurmas = () => {return turmasDB.length}
-/**
- *  Cadastra uma nova turma para turmasDB. Restrições no cadastramento são: Codigo e maximo ambos devem ser maiores ou igual a 1, ou menor e igual a 10. No máximo 10 turmas podem existir
- * @param {*} codigo código da turma que será cadastrada
- * @param {*} maximo  Número máximo de alunos para a turma
- */
 
 
 // ===============================================================================
