@@ -1,4 +1,5 @@
 const EMAIL_REGEX = new RegExp(/[\w-\.]+@([\w-]+\.)+[\w-]/, 'g') // RegExp que captura padrão de email
+const DATA_REGEX = new RegExp(/\d{1,2}[\/|-]\d{1,2}[\/|-]\d{2,4}/) // regex pesquisa por dd/mm/yyyy ou dd-mm-yyyy
 
 /**
  * Calcula média do array parametrizado
@@ -112,9 +113,7 @@ const validarTurma = (t) => {
 const validarData = (d) => {
     if (d && d.trim().length > 0){
 
-        const reg = new RegExp(/\d{1,2}[\/|-]\d{1,2}[\/|-]\d{2,4}/) // regex pesquisa por dd/mm/yyyy ou dd-mm-yyyy
-
-        if (d.match(reg)){
+        if (d.match(DATA_REGEX)){ //
 
             data = d.split(/[-|\/]/)
             return new Date(`${data[2]}/${data[1]}/${data[0]}`)
