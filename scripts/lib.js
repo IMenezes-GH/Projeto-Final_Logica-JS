@@ -166,6 +166,12 @@ const validarNotas = (n) => {
     }
 }
 
+/**
+ * Função para validar a classe cadastrada tomando com base a turma
+ * @param {String} c A classe a ser validada
+ * @param {Number} t A turma que será validada a classe
+ * @returns {String} A turma, caso seja validada
+ */
 const validarClasse = (c, t) => {
     const classes = ['A', 'B', 'C', 'D']
 
@@ -195,6 +201,13 @@ const validarClasse = (c, t) => {
     }
 }
 
+
+/**
+ * 
+ * @param {*} dado O valor bruto do dado 
+ * @param {*} tipo O tipo de dado que deve ser validado
+ * @returns {CallableFunction} Execução da função de validação respectiva
+ */
 const validarHelper = (dado, tipo) => {
     switch (tipo){
         case 'nome':
