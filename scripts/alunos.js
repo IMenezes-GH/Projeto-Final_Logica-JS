@@ -43,18 +43,22 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
 // =-------------------------------------------------------------------------------=
 /**
  * Realiza uma busca no alunosDB por um nome ou email estritamente igual ao input
- * @param {String} s String a ser pesquisado
+ * @param {String | Number} s String a ser pesquisado (pesquisa por nome/email) ou número (pesquisa por turma)
  * @returns {Object | Array | null} retorna Object ou array se a pesquisa encontrar um resultado. Retorna null se nenhum nome ou email for encontrado.
  */
 const buscarAluno = (s) => {
     let resultado
 
+    if (typeof s === 'number'){
+        resultado = alunosDB.filter((aluno) => aluno.turma === s)
+        console.log(resultado)
+    }
     /**
      * Verifica se o parâmetro de input é um email válido ou não.
      * Se true, realiza busca única por email. Se false, realiza busca por nome e retorna um array de todos resultados.
      */
 
-    if (s.match(EMAIL_REGEX)){
+    else if (s.match(EMAIL_REGEX)){
         resultado = alunosDB.findIndex((aluno) => aluno.email === s) ?? -1 // ?? para que 0 seja 0
     } else {
         const busca = alunosDB.filter((aluno) => {return s === aluno.nome})
