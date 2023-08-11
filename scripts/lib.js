@@ -166,6 +166,17 @@ const validarNotas = (n) => {
     }
 }
 
+const validarClasse = (c, t) => {
+    const classes = ['A', 'B', 'C', 'D']
+
+    if (typeof(c) === 'string' && classes.includes(c.toUpperCase())){
+        //TODO
+        return true
+    } else {
+        throw new Error('Classe inválida. Selecione uma das seguintes classes: A, B, C ou D.')
+    }
+}
+
 const validarHelper = (dado, tipo) => {
     switch (tipo){
         case 'nome':
