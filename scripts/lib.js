@@ -176,21 +176,23 @@ const validarClasse = (c, t) => {
     const classes = ['A', 'B', 'C', 'D']
 
     if (typeof(c) === 'string' && classes.includes(c.toUpperCase())){
-        let sample = buscarAluno(t)[0].classe
+        let sample = buscarAluno(t)
+        sample = sample.length ? sample[0].classe : null
+    
         let classe = c.toUpperCase()
 
         switch (classe){
 
             case 'A':
             case 'D':
-                if (sample === 'A' || sample === 'D') {
+                if (sample === 'A' || sample === 'D' || sample === null) {
                     return classe
                } else {
                 throw new Error('Não é possível cadastrar essa classe nessa turma.')
                }
             case 'B':
             case 'C':
-                if (sample === 'B' || sample === 'C') {
+                if (sample === 'B' || sample === 'C' || sample === null) {
                     return classe
                } else {
                 throw new Error('Não é possível cadastrar essa classe nessa turma.')
