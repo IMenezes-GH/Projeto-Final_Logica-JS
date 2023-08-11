@@ -58,5 +58,15 @@ let alunosDB = [
     notas: [8, 8, 8],
     classe: 'D',
     ativo: true,
+    },
+    {
+    nome: 'Pepita',
+    sobrenome: 'Menezes Silva',
+    email: 'pepita@email.com',
+    turma: 4,
+    nascimento: new Date(2003, 8, 21),
+    notas: [10, 10, 10, 10, 10],
+    classe: 'A',
+    ativo: true
     }
 ]
