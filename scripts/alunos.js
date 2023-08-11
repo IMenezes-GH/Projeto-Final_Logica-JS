@@ -16,7 +16,7 @@
  * @param {Boolean} ativo Se o aluno está ativamente matriculado ou não. Padrão true
  * @returns {Boolean} True se a função executar com sucesso, caso contrário, false.
  */
-const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=true) => {
+const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, classe, ativo=true) => {
 
     try{
         const aluno = {
@@ -26,6 +26,7 @@ const cadastrarAluno = (nome, sobrenome, email, turma, nascimento, notas, ativo=
             turma : validarTurma(turma),
             nascimento : validarData(nascimento),
             notas : validarNotas(notas),
+            classe: validarClasse(classe, turma),
             ativo : Boolean(ativo),
         }
             alunosDB.push(aluno)
@@ -51,7 +52,7 @@ const buscarAluno = (s) => {
 
     if (typeof s === 'number'){
         resultado = alunosDB.filter((aluno) => aluno.turma === s)
-        console.log(resultado)
+        return(resultado)
     }
     /**
      * Verifica se o parâmetro de input é um email válido ou não.

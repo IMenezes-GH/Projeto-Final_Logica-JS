@@ -6,6 +6,7 @@ let alunosDB = [
     turma : 1,
     nascimento : new Date(1999, 11, 3),
     notas: [5, 2, 7, 8],
+    classe: 'A',
     ativo: true,
     },
     {
@@ -15,6 +16,7 @@ let alunosDB = [
     turma : 1,
     nascimento : new Date(1999, 8, 20),
     notas: [9, 8, 6, 6, 7],
+    classe: 'D',
     ativo: true,
     },
     {
@@ -24,6 +26,7 @@ let alunosDB = [
     turma : 2,
     nascimento : '2000-01-9',
     notas: [6, 6, 7, 8, 9],
+    classe: 'B',
     ativo: true,
     },
     {
@@ -33,7 +36,8 @@ let alunosDB = [
     turma: 3,
     nascimento: new Date(2000, 3, 19),
     notas: [7, 6, 3, 4],
-    ativo: true
+    classe: 'A',
+    ativo: true,
     },
     {
     nome: 'Felipe',
@@ -42,7 +46,8 @@ let alunosDB = [
     turma: 3,
     nascimento: new Date(2000, 9, 30),
     notas: [3, 4, 8],
-    ativo: false
+    classe: 'A',
+    ativo: false,
     },
     {
     nome: 'Beatriz',
@@ -51,6 +56,7 @@ let alunosDB = [
     turma: 3,
     nascimento: new Date(2000, 9, 4),
     notas: [8, 8, 8],
-    ativo: true
+    classe: 'D',
+    ativo: true,
     }
 ]
