@@ -57,6 +57,6 @@ Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com 
 
 Como opcional adicionar a funcionalidade de classificação nos alunos, onde será possível **cadastrar** os alunos com a seguinte classificação: A, B, C ou D. Isso implicará na forma como adicionamos novos alunos seguindo a regra:
 
-Alunos com classificação A e D não podem estar na mesma turma com alunos com classificação B e C e vise-versa.
+[x] Alunos com classificação A e D não podem estar na mesma turma com alunos com classificação B e C e vise-versa. ✓
 
 Observação: Essa é uma funcionalidade completamente opcional e pode ser adicionada após a realização dos requisitos principais.
