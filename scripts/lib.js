@@ -124,7 +124,7 @@ const validarData = (data) => {
 
         if (data.match(DATA_REGEX)){ //
 
-            let data = data.split(/[-|\/]/)
+            data = data.split(/[-|\/]/)
             data = new Date(`${data[2]}/${data[1]}/${data[0]}`)
             const idade = calcularIdade(data)
 
