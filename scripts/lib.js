@@ -56,20 +56,20 @@ const buscaTurma = (t) => {
 
 /**
  * Função para validar se determinada string qualifica como nome. Transforma os nomes em titlecase onde necessário.
- * @param {String} n nome para ser validado
+ * @param {String} nome nome para ser validado
  * @returns {String} O nome validado ou null caso valor seja inválido
  */
-const validarNome = (n) => {
-    if (!n) throw new Error('Por favor digite um nome/sobrenome')
+const validarNome = (nome) => {
+    if (!nome) throw new Error('Por favor digite um nome/sobrenome')
 
-    n = n.trim()
-    if (n.length){
-        n = n.split(' ')
-        n = n.map(el => {
+    nome = nome.trim()
+    if (nome.length){
+        nome = nome.split(' ')
+        nome = nome.map(el => {
             const conectivos = ['da', 'de', 'das', 'dos']
             return conectivos.includes(el) ? el : el.charAt(0).toUpperCase() + el.slice(1)
         });
-        return n.join(' ')
+        return nome.join(' ')
     } else {
         throw new Error('Nome ou sobrenome inválido')
     }
@@ -77,15 +77,15 @@ const validarNome = (n) => {
 
 /**
  * Função para validar se determinada string qualifica como email. Parâmetros para ser considerado como email são: Uma sequência de caractéres alfanuméricos (username), seguidos por um '@' (symbol), outra sequência de caractéres alfanuméricos (domínio) seguidos com um '.' seguido por mais caractéres alfanuméricos (top-level).
- * @param {String} e uma string que que será verificada
+ * @param {String} email uma string que que será verificada
  * @returns {String} retorna o email caso validado, ao contrário retorna false
  */
-const validarEmail = (e) => {
-    if (!e) throw new Error('Por favor digite um email')
+const validarEmail = (email) => {
+    if (!email) throw new Error('Por favor digite um email')
 
-    if (e && e.match(EMAIL_REGEX)){
-        if (buscarAluno(e).index === -1){ // checa se email não está em uso
-            return e  
+    if (email && email.match(EMAIL_REGEX)){
+        if (buscarAluno(email).index === -1){ // checa se email não está em uso
+            return email  
         } else {
             throw new Error('Email em uso.')
         }
@@ -96,18 +96,18 @@ const validarEmail = (e) => {
 
 /**
  * Realiza uma pesquisa e verifica se uma dada turma existe e está aceitando alunos
- * @param {Number} t A turma a ser pesquisada 
+ * @param {Number} turma A turma a ser pesquisada 
  * @returns {Number} A turma selecionada
  */
-const validarTurma = (t) => {
-    if (t && turmaExiste(t)){
-        const turmaAlunos = alunosDB.filter((aluno) => aluno.turma === t)
-        const turmaSelecionada = turmasDB.at(buscaTurma[t])
+const validarTurma = (turma) => {
+    if (turma && turmaExiste(turma)){
+        const turmaAlunos = alunosDB.filter((aluno) => aluno.turma === turma)
+        const turmaSelecionada = turmasDB.at(buscaTurma[turma])
 
         if (turmaAlunos.length < turmaSelecionada.maximo){
-            return t
+            return turma
         } else {
-            throw new Error(`Essa turma [${t}] já atingiu a capacidade de alunos: ${turmaSelecionada.maximo}`)
+            throw new Error(`Essa turma [${turma}] já atingiu a capacidade de alunos: ${turmaSelecionada.maximo}`)
         }
     } else {
         return new Error('essa turma não existe')
@@ -119,12 +119,12 @@ const validarTurma = (t) => {
  * @param {String} data string que será convertida em data
  * @returns {Date}
  */
-const validarData = (d) => {
-    if (d && d.trim().length > 0){
+const validarData = (data) => {
+    if (data && data.trim().length > 0){
 
-        if (d.match(DATA_REGEX)){ //
+        if (data.match(DATA_REGEX)){ //
 
-            let data = d.split(/[-|\/]/)
+            let data = data.split(/[-|\/]/)
             data = new Date(`${data[2]}/${data[1]}/${data[0]}`)
             const idade = calcularIdade(data)
 
@@ -148,10 +148,10 @@ const validarData = (d) => {
  * @param {Array} notas Um array de notas que serão avaliado 
  * @returns {Array} Retorna o array convertido em Number caso válido, null caso inválido.
  */
-const validarNotas = (n) => {
-    if (!n) throw new Error('Por favor digite as notas.')
+const validarNotas = (notas) => {
+    if (!notas) throw new Error('Por favor digite as notas.')
 
-    n.map((nota) => {
+    notas.map((nota) => {
         if ((nota) >= 0 && nota <= 10){
             return Number(nota)
         } else {
@@ -159,8 +159,8 @@ const validarNotas = (n) => {
         }
     })
 
-    if (n.length <= 5){
-        return n
+    if (notas.length <= 5){
+        return notas
     } else {
         throw new Error('Máximo de 5 notas podem ser preenchidas')
     }
@@ -168,18 +168,18 @@ const validarNotas = (n) => {
 
 /**
  * Função para validar a classe cadastrada tomando com base a turma
- * @param {String} c A classe a ser validada
- * @param {Number} t A turma que será validada a classe
- * @returns {String} A turma, caso seja validada
+ * @param {String} classe A classe a ser validada
+ * @param {Number} turma A turma que será validada a classe
+ * @returns {String} A classe, caso seja válida
  */
-const validarClasse = (c, t) => {
+const validarClasse = (classe, turma) => {
     const classes = ['A', 'B', 'C', 'D']
 
-    if (typeof(c) === 'string' && classes.includes(c.toUpperCase())){
-        let sample = buscarAluno(t)
+    if (typeof(classe) === 'string' && classes.includes(classe.toUpperCase())){
+        let sample = buscarAluno(turma)
         sample = sample.length ? sample[0].classe : null
     
-        let classe = c.toUpperCase()
+        classe = classe.toUpperCase()
 
         switch (classe){
 
@@ -200,31 +200,5 @@ const validarClasse = (c, t) => {
         }
     } else {
         throw new Error('Classe inválida. Selecione uma das seguintes classes: A, B, C ou D.')
-    }
-}
-
-
-/**
- * 
- * @param {*} dado O valor bruto do dado 
- * @param {*} tipo O tipo de dado que deve ser validado
- * @returns {CallableFunction} Execução da função de validação respectiva
- */
-const validarHelper = (dado, tipo) => {
-    switch (tipo){
-        case 'nome':
-        case 'sobrenome':
-            return validarNome(dado)
-        case 'email':
-            return validarEmail(dado)
-        case 'nascimento':
-            return validarData(dado)
-        case 'notas':
-            return validarNotas(dado)
-        case 'turma':
-            return validarTurma(dado)
-        default:
-            console.log('Esse tipo de dado não pode ser validado')
-            break
     }
 }

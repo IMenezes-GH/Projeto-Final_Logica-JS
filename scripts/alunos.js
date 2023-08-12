@@ -106,23 +106,65 @@ const removerAluno = (a) => {
  * @param {Object} params Dados para atualizar no cadastro do aluno 
  * @returns {Object} os dados atualizados do aluno
  */
-function atualizarAluno(emailID, {nome, sobrenome, email, turma, nascimento, notas, ativo}){
+function atualizarAluno(emailID, {nome, sobrenome, email, turma, classe, nascimento, notas, ativo}){
     console.log(arguments)
     
     try {
         if (!emailID) throw new Error('Por favor preencha o email, seguido de um objeto com os dados a serem atualizados')
         
         let novosDados = arguments[1]  
-        const aluno = buscarAluno(emailID) ?? null
-        
-        if (aluno){
-            let a = alunosDB[aluno.index]
+        let busca = buscarAluno(emailID) ?? null
+
+        if (busca){
+            aluno = alunosDB[busca.index]
+            index = busca.index
 
             for (key in novosDados){
-                alunosDB[0][key] = validarHelper(novosDados[key], key)
+                const novoDado = novosDados[key] // novo dado passado no parâmetro
+
+                switch (key){
+                    case 'nome':
+                    case 'sobrenome':
+                        alunosDB[index][key] = validarNome(novoDado)
+                        break
+                    case 'email':
+                        alunosDB[index][key] = validarEmail(novoDado)
+                        break
+                    case 'nascimento':
+                        alunosDB[index][key] = validarData(novoDado)
+                        break
+                    case 'notas':
+                        alunosDB[index][key] = validarNotas(novoDado)
+                        break
+                    case 'turma':
+
+                        if (novosDados.classe && validarClasse(novosDados.classe, novoDado)){
+                            novosDados.classe = validarClasse(novosDados.classe, novoDado)
+                            alunosDB[index].turma = validarTurma(novoDado)
+                            alunosDB[index].classe = novosDados.classe
+                        }
+
+                        else if (!novosDados.classe && validarClasse(aluno.classe, novoDado)){
+                            alunosDB[index][key] = validarTurma(novoDado)
+                        } 
+
+                        break
+                    case 'classe':
+                        
+                        if (novosDados.turma){
+                            break
+                        } else {
+                            alunosDB[index][key] = validarClasse(novoDado, aluno.turma)
+                        }
+
+                        break
+                    default:
+                        console.log('Esse tipo de dado não pode ser validado')
+                        break
+                }
             }
 
-            return a
+            return aluno
         } else {
             throw new Error('Não foi possível atualizar esse aluno')
         }

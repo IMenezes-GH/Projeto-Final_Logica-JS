@@ -4,6 +4,10 @@
 
 Segue abaixo a lista de requisitos preenchidos do projeto, em concordância com o arquivo [projeto-final.md](https://github.com/IMenezes-GH/desafio-final_logica/blob/main/projeto-final.md)
 
+# TODO: 
+- [ ] Atualizar a atualização de aluno levando em conta classe
+- [ ] Implementar UI simples
+
 ## Lista de requisitos:
 - [x] **Cadastrar turma, contendo**
 	- [x] código, *number* entre 1 e 10 (no máximo 10 turmas)
