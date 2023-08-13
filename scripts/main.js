@@ -23,6 +23,12 @@ const help = () => {
     Cadastrar uma turma (codigo de 1 a 10 e maximo de 5 a 10):
     cadastrarTurma(codigo, maximo)
 
+    Atualizar uma turma:
+    atualizarTurma(codigo, {codigo, maximo})
+
+    Remover uma turma:
+    removerTurma(codigo)
+
     ===========================================================================
 
     Cadastrar o aluno:
