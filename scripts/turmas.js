@@ -44,26 +44,24 @@ const removerTurma = (codigo) => {
 }
 
 const atualizarTurma = (codigoId, {codigo, maximo}) => {
+    try {
+        codigoId = Number(codigoId)
+        const busca = buscarTurma(codigoId)
+    
+        if (isNaN(codigoId)) throw new Error('Você precisa selecionar um código de turma para atualizar')
+    
+        if (busca !== -1){
+            turma = turmasDB[busca]
+            let quantidadeAlunos = buscarAluno(codigoId).length
 
-    codigoId = Number(codigoId)
-    const busca = buscarTurma(codigoId)
-
-    if (isNaN(codigoId)) throw new Error('Você precisa selecionar um código de turma para atualizar')
-
-    if (busca !== -1){
-        turma = turmasDB[busca]
-        let quantidadeAlunos = buscarAluno(codigoId).length
-        console.log(quantidadeAlunos)
-       
-        if (maximo && maximo < quantidadeAlunos) throw new Error(`Você não pode diminuir a capacidade máxima de alunos na turma para ${maximo} pois é menor do que a quantidade atual de alunos nessa turma.`)
-        
-        turmasDB[busca].codigo = codigo ? validarCodigo(codigo) : turma.codigo
-        turmasDB[busca].maximo = maximo ? validarMaximo(maximo) : turma.maximo
-
-        // if (Number(maximo) && maximo >= 5 && maximo <= 10 && maximo > busca.length){
-        //     turmasDB[busca].maximo = maximo ? maximo : turma.maximo
-        // }
-
+            if (maximo && maximo < quantidadeAlunos) throw new Error(`Você não pode diminuir a capacidade máxima de alunos na turma para ${maximo} pois é menor do que a quantidade atual de alunos nessa turma: [${quantidadeAlunos}].`)
+            
+            turmasDB[busca].codigo = codigo ? validarCodigo(codigo) : turma.codigo
+            turmasDB[busca].maximo = maximo ? validarMaximo(maximo) : turma.maximo
+    
+        }
+    } catch (err){
+        console.error(err.message)
     }
 
 }
