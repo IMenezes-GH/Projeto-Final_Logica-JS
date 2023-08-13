@@ -124,8 +124,8 @@ const validarEmail = (email) => {
  * @param {Number} turma A turma a ser pesquisada 
  * @returns {Number} A turma selecionada
  */
-const validarTurma = (turma, classe) => {
-    if (turma && classe && turmaExiste(turma)){
+const validarTurma = (turma) => {
+    if (turma && turmaExiste(turma)){
         const turmaAlunos = alunosDB.filter((aluno) => aluno.turma === turma)
         const turmaSelecionada = turmasDB.at(buscarTurma[turma])
 
