@@ -50,6 +50,20 @@ const buscarTurma = (t) => {
 }
 
 
+const validarCodigo = (codigo) => {
+    codigo = Number(codigo)
+
+    if (codigo === NaN) throw new Error('Código indefinido')
+    
+    if (codigo < 1 || codigo > 10) throw new Error('O código da turma tem que ser um valor entre 1 à 10')
+    if (turmaExiste(codigo)) throw new Error(`A turma ${codigo} já existe. Código da turma tem que ser um valor único.`)
+
+    else {
+        return codigo
+    }
+}
+
+
 // ===============================================================================
 //                  VALIDAÇÃO DE DADOS - ALUNOS
 // =-------------------------------------------------------------------------------=
