@@ -53,13 +53,24 @@ const buscarTurma = (t) => {
 const validarCodigo = (codigo) => {
     codigo = Number(codigo)
 
-    if (codigo === NaN) throw new Error('Código indefinido')
+    if (isNaN(codigo)) throw new Error('Código possui um valor inválido')
     
     if (codigo < 1 || codigo > 10) throw new Error('O código da turma tem que ser um valor entre 1 à 10')
     if (turmaExiste(codigo)) throw new Error(`A turma ${codigo} já existe. Código da turma tem que ser um valor único.`)
 
     else {
         return codigo
+    }
+}
+
+const validarMaximo = (maximo) => {
+    maximo = Number(maximo)
+
+    if (isNaN(maximo)) throw new Error(`Máximo possui um valor inválido de: ${maximo}`)
+    if (maximo < 5 || maximo > 10) throw new Error('O valor máximo de alunos deve estar entre 5 à 10')
+
+    else {
+        return maximo
     }
 }
 

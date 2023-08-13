@@ -7,18 +7,14 @@ const cadastrarTurma = (codigo, maximo = 5) => {
 
     try {
 
-        codigo = validarCodigo(parseInt(codigo))
-        maximo = parseInt(maximo)
-
         if (quantidadeTurmas() >= 10) throw new Error('Quantidade máxima de turmas excedido (10)')
+
+        codigo = validarCodigo(codigo)
+        maximo = validarMaximo(maximo)
         
-        else if (maximo < 5 || maximo > 10){
-            throw new Error('Número máximo de alunos deve estar entre 5 e 10.')
-        }
-        else {
-            turmasDB.push({codigo, maximo})
-            return {codigo, maximo}
-        }
+        turmasDB.push({codigo, maximo})
+        return {codigo, maximo}
+
     } catch (err) {
         console.error(err.message)
         return false
