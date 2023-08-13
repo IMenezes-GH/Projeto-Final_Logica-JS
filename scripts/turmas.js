@@ -10,9 +10,8 @@ const cadastrarTurma = (codigo, maximo = 5) => {
         codigo = parseInt(codigo)
         maximo = parseInt(maximo)
 
-        if (quantidadeTurmas() >= 10){
-            throw new Error('Quantidade máxima de turmas excedido (10)')
-        }
+        if (quantidadeTurmas() >= 10) throw new Error('Quantidade máxima de turmas excedido (10)')
+        
         else if (codigo > 10 || codigo < 1){
             throw new Error('Códigos para Turmas cadastradas devem ter digitos entre 1 e 10.')
         }
@@ -33,4 +32,44 @@ const cadastrarTurma = (codigo, maximo = 5) => {
         console.error(err.message)
         return false
     }
+}
+
+const removerTurma = (codigo) => {
+    try {
+        
+        const indexTurma = buscarTurma(codigo)
+    
+        if (codigo && indexTurma !== -1){
+            if (buscarAluno(codigo).length > 0){
+                throw new Error('É impossível remover essa turma, ela não está vazia.')
+            } else {
+                delete turmasDB[indexTurma]
+                turmasDB = turmasDB.filter(Boolean)
+            }
+        } else {
+            throw new Error('Essa turma não existe')
+        }
+    } catch (err) {
+        console.error(err.message)
+    }
+}
+
+const atualizarTurma = (codigoId, {codigo, maximo}) => {
+
+    const busca = buscarTurma(codigoId)
+
+    if (codigoId === undefined) throw new Error('Você precisa selecionar um código de turma para atualizar')
+    if (busca !== -1){
+        turma = turmasDB[busca]
+
+        if (Number(codigo) && codigo > 0 && codigo <= 10 && !turmaExiste(codigo)){
+            turmasDB[busca].codigo = Number(codigo)
+        }
+
+        if (Number(maximo) && maximo >= 5 && maximo <= 10 && maximo > busca.length){
+            turmasDB[busca].maximo = maximo ? maximo : turma.maximo
+        }
+
+    }
+
 }

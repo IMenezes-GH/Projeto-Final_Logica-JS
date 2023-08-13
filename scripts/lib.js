@@ -45,7 +45,7 @@ let quantidadeTurmas = () => {return turmasDB.length}
  * @param {String} t Turma a ser pesquisa 
  * @returns {Number} o index da turma pesquisa. -1 caso a turma não seja encontrada
  */
-const buscaTurma = (t) => {
+const buscarTurma = (t) => {
     return turmasDB.findIndex((turma) => turma.codigo === t)
 }
 
@@ -102,7 +102,7 @@ const validarEmail = (email) => {
 const validarTurma = (turma, classe) => {
     if (turma && classe && turmaExiste(turma)){
         const turmaAlunos = alunosDB.filter((aluno) => aluno.turma === turma)
-        const turmaSelecionada = turmasDB.at(buscaTurma[turma])
+        const turmaSelecionada = turmasDB.at(buscarTurma[turma])
 
         if (turmaAlunos.length < turmaSelecionada.maximo){
             return turma
