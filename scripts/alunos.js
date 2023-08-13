@@ -106,7 +106,7 @@ const removerAluno = (a) => {
  * @param {Object} params Dados para atualizar no cadastro do aluno 
  * @returns {Object} os dados atualizados do aluno
  */
-function atualizarAluno(emailID, {nome, sobrenome, email, turma, classe, nascimento, notas, ativo}){
+const atualizarAluno = (emailID, {nome, sobrenome, email, turma, classe, nascimento, notas, ativo}) => {
     
     try {
         if (!emailID) throw new Error('Por favor preencha o email, seguido de um objeto com os dados a serem atualizados')
