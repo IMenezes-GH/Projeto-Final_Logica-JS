@@ -107,61 +107,34 @@ const removerAluno = (a) => {
  * @returns {Object} os dados atualizados do aluno
  */
 function atualizarAluno(emailID, {nome, sobrenome, email, turma, classe, nascimento, notas, ativo}){
-    console.log(arguments)
     
     try {
         if (!emailID) throw new Error('Por favor preencha o email, seguido de um objeto com os dados a serem atualizados')
         
-        let novosDados = arguments[1]  
-        let busca = buscarAluno(emailID) ?? null
+        const busca = buscarAluno(emailID) ?? null
 
+        
         if (busca){
+
             aluno = alunosDB[busca.index]
             index = busca.index
 
-            for (key in novosDados){
-                const novoDado = novosDados[key] // novo dado passado no parâmetro
+            alunosDB[index].nome = nome ? validarNome(nome) : aluno.nome
+            alunosDB[index].sobrenome = sobrenome ? validarNome(sobrenome) : aluno.sobrenome
+            alunosDB[index].email = email ? validarEmail(email) : aluno.email
+            alunosDB[index].nascimento = nascimento ? validarData(nascimento) : aluno.nascimento
+            alunosDB[index].notas = notas ? validarNotas(notas) : aluno.notas
+            alunosDB[index].notas = ativo ? Boolean(ativo) : aluno.ativo
 
-                switch (key){
-                    case 'nome':
-                    case 'sobrenome':
-                        alunosDB[index][key] = validarNome(novoDado)
-                        break
-                    case 'email':
-                        alunosDB[index][key] = validarEmail(novoDado)
-                        break
-                    case 'nascimento':
-                        alunosDB[index][key] = validarData(novoDado)
-                        break
-                    case 'notas':
-                        alunosDB[index][key] = validarNotas(novoDado)
-                        break
-                    case 'turma':
+            if (turma && classe){
+                turma = validarTurma(turma)
+                classe = validarClasse(classe, turma)
 
-                        if (novosDados.classe && validarClasse(novosDados.classe, novoDado)){
-                            novosDados.classe = validarClasse(novosDados.classe, novoDado)
-                            alunosDB[index].turma = validarTurma(novoDado)
-                            alunosDB[index].classe = novosDados.classe
-                        }
-
-                        else if (!novosDados.classe && validarClasse(aluno.classe, novoDado)){
-                            alunosDB[index][key] = validarTurma(novoDado)
-                        } 
-
-                        break
-                    case 'classe':
-                        
-                        if (novosDados.turma){
-                            break
-                        } else {
-                            alunosDB[index][key] = validarClasse(novoDado, aluno.turma)
-                        }
-
-                        break
-                    default:
-                        console.log('Esse tipo de dado não pode ser validado')
-                        break
-                }
+                alunosDB[index].turma = turma
+                alunosDB[index].classe = classe
+            } else {
+                alunosDB[index].turma = turma && validarClasse(aluno.classe, turma) ? validarTurma(turma) : aluno.turma
+                alunosDB[index].classe = classe ? validarClasse(classe, aluno.turma) : aluno.classe
             }
 
             return aluno
