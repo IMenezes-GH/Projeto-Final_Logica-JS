@@ -21,6 +21,10 @@ const cadastrarTurma = (codigo, maximo = 5) => {
     }
 }
 
+/**
+ * Remove uma turma do banco de dados
+ * @param {Number} codigo O código da turma que será removida
+ */
 const removerTurma = (codigo) => {
     try {
 
@@ -43,6 +47,12 @@ const removerTurma = (codigo) => {
     }
 }
 
+/**
+ * Atualiza uma turma de alunos
+ * @param {Number} codigoId o código (atual) da turma que será atualizada
+ * @param {Number} codigo o valor objetivo para atualizar o código
+ * @param {Number} maximo o valor objetivo para o máximo de alunos na classe 
+ */
 const atualizarTurma = (codigoId, {codigo, maximo}) => {
     try {
         codigoId = Number(codigoId)
