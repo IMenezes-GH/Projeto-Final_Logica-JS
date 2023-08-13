@@ -174,7 +174,7 @@ const validarData = (data) => {
  * @returns {Array} Retorna o array convertido em Number caso válido, null caso inválido.
  */
 const validarNotas = (notas) => {
-    if (!notas) throw new Error('Por favor digite as notas.')
+    if (!notas || notas.length === 0) throw new Error('Por favor digite as notas.')
 
     notas.map((nota) => {
         if ((nota) >= 0 && nota <= 10){
